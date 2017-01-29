@@ -8,37 +8,37 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.ParseException;
 
-import com.ftp.cmd.FTPRequest;
 import com.ftp.cmd.FTPResponse;
-import com.ftp.states.InitialState;
-import com.ftp.states.State;
+import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.utils.Context;
+import com.ftp.utils.Parser;
 
 public class Client implements Runnable {
 	private Socket client;
 	private BufferedReader reader;
 	private BufferedWriter writer;
 	
-	private State currentState;
-	
-	private String username = null;
+	private Context context;
 	
 	public Client(Socket client) throws IOException {
 		this.client = client;
+		
+		context = new Context(this);
 		reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
-		currentState = new InitialState();
 	}
 	
 	public void run() {		
 		try {
 			String request = "";
+			System.out.println("waiting for requests");
 			while((request = reader.readLine()) != null) {
 				try {
 					FTPRequest ftpRequest = Parser.parseRequest(request);
-					
-					currentState.executeRequest(this, ftpRequest);
+					context.getCurrentState().executeRequest(context, ftpRequest);
 				} catch (ParseException e) {
 					// TODO: return bad request
+					System.out.println(e.getMessage());
 				}
 			}
 		} catch (IOException e) {
@@ -46,17 +46,11 @@ public class Client implements Runnable {
 		}
 	}
 	
-
-	public void setState(State newState) {
-		currentState = newState;
-	}
-	
 	public void sendResponse(FTPResponse response) {
 		try {
 			writer.write(response.toString());
 			writer.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -68,13 +62,4 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 }
