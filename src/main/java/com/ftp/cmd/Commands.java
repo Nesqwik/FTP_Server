@@ -6,6 +6,7 @@ import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
+import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestUser;
 
 public enum Commands {
@@ -44,6 +45,12 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(String message) {
 			return new FTPRequestQuit();
+		}
+	},
+	SYST("SYST") {
+		@Override
+		public FTPRequest makeRequest(String message) {
+			return new FTPRequestSyst();
 		}
 	};
 	

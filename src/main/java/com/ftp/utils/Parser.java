@@ -16,11 +16,16 @@ public class Parser {
 		}
 		
 		String code = words[0].trim();
-		String message = words[1].trim();
+		String message = "";
+		if(words.length == 2){
+			message = words[1].trim();
+		}
 		
 		try {
+			System.out.println(code + " : " + message);
 			return Commands.valueOf(code).makeRequest(message);
 		} catch (IllegalArgumentException e) {
+			System.out.println(code + " : " + message);
 			throw new ParseException("Unknown command sent", 0);
 		}
 	}

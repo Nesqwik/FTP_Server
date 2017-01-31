@@ -31,14 +31,14 @@ public class Client implements Runnable {
 	public void run() {		
 		try {
 			String request = "";
+			sendResponse(new FTPResponse(220, "awaiting input"));
 			System.out.println("waiting for requests");
 			while((request = reader.readLine()) != null) {
 				try {
 					FTPRequest ftpRequest = Parser.parseRequest(request);
 					context.getCurrentState().executeRequest(context, ftpRequest);
 				} catch (ParseException e) {
-					// TODO: return bad request
-					System.out.println(e.getMessage());
+					sendResponse(FTPResponse.getCommandNotImplementedResponse());
 				}
 			}
 		} catch (IOException e) {
@@ -48,7 +48,7 @@ public class Client implements Runnable {
 	
 	public void sendResponse(FTPResponse response) {
 		try {
-			writer.write(response.toString());
+			writer.write(response.toString() + "\n");
 			writer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

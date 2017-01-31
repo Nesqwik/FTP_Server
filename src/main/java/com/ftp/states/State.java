@@ -1,11 +1,13 @@
 package com.ftp.states;
 
+import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
+import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestUser;
 import com.ftp.utils.Context;
 
@@ -15,27 +17,33 @@ public abstract class State {
 	}
 	
 	public void concreteExecuteRequest(Context context, FTPRequestUser request) {
-		sendBadRequest();
+		sendNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(Context context, FTPRequestList request) {
-		sendBadRequest();
+		sendNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(Context context, FTPRequestPass request) {
-		sendBadRequest();
+		sendNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(Context context, FTPRequestQuit request) {
-		sendBadRequest();
+		FTPResponse response = request.execute(context);
+		context.getClient().sendResponse(response);
+		context.getClient().quit();
 	}
 	public void concreteExecuteRequest(Context context, FTPRequestRetr request) {
-		sendBadRequest();
+		sendNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(Context context, FTPRequestStor request) {
-		sendBadRequest();
+		sendNotImplementedResponse(context);
 	}
 	
-	protected void sendBadRequest() {
-		//TODO: handle when bad request
-		System.out.println("this state can't accept this request");
+	public void concreteExecuteRequest(Context context, FTPRequestSyst request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	protected void sendNotImplementedResponse(Context context) {
+		
+		context.getClient().sendResponse(FTPResponse.getCommandNotImplementedResponse());
 	}
 	
 	protected abstract String getName();

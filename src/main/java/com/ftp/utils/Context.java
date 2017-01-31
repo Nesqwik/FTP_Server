@@ -9,6 +9,7 @@ public class Context {
 	private Client client;
 	private State currentState;
 	private String username = null;
+	private FileSystem fileSystem;
 
 	public Context(Client client) {
 		this.client = client;
@@ -55,6 +56,14 @@ public class Context {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public FileSystem getFileSystem() {
+		return fileSystem;
+	}
+
+	public void setFileSystem(String rootDirectory) {
+		this.fileSystem = new FileSystem(rootDirectory);
 	}
 
 

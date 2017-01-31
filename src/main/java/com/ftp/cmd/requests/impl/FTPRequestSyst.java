@@ -6,24 +6,21 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
 
-public class FTPRequestUser extends FTPRequest {
-	
-	public FTPRequestUser(String message) {
-		this.message = message;
-	}
+public class FTPRequestSyst extends FTPRequest {
 
 	@Override
 	public Commands getCommand() {
-		return Commands.USER;
+		return Commands.SYST;
 	}
 
 	@Override
 	public FTPResponse execute(Context context) {
-		// TODO: handle the login (check existance...)
-		return new FTPResponse(331, "User name ok, need password");
+		return new FTPResponse(215, "UNIX");
 	}
 
+	@Override
 	public void executeState(Context context, State state) {
 		state.concreteExecuteRequest(context, this);
 	}
+
 }

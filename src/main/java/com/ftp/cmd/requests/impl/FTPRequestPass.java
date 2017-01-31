@@ -19,7 +19,7 @@ public class FTPRequestPass extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(Context context) {
-		return new FTPResponse(200, "ok");
+		return new FTPResponse(230, "User logged in");
 	}
 	public void executeState(Context context, State state) {
 		state.concreteExecuteRequest(context, this);
