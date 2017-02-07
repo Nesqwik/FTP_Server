@@ -6,18 +6,28 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
 
-public class FTPRequestPwd extends FTPRequest {
+public class FTPRequestMKD extends FTPRequest {
+
+	public FTPRequestMKD(String message) {
+		super(message);
+	}
 
 	@Override
 	public Commands getCommand() {
-		return Commands.PWD;
+		return Commands.MKD;
 	}
 
 	@Override
 	public FTPResponse execute(Context context) {
-		return new FTPResponse(257, context.getFileSystem().pwd());
+		String newFile = getMessage();
+		if (context.getFileSystem().mkd(newFile)) {
+			return new FTPResponse(257, "\"" + getMessage() + "\" directory created");
+		}
+		
+		return new FTPResponse(550, "Requested action not taken.");
 	}
 
+	@Override
 	public void executeState(Context context, State state) {
 		state.concreteExecuteRequest(context, this);
 	}

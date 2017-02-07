@@ -6,18 +6,26 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
 
-public class FTPRequestPwd extends FTPRequest {
+public class FTPRequestRMD extends FTPRequest {
+
+	public FTPRequestRMD(String message) {
+		super(message);
+	}
 
 	@Override
 	public Commands getCommand() {
-		return Commands.PWD;
+		return Commands.RMD;
 	}
 
 	@Override
 	public FTPResponse execute(Context context) {
-		return new FTPResponse(257, context.getFileSystem().pwd());
+		if (context.getFileSystem().rmd(getMessage())) {
+			return new FTPResponse(250, "Requested file action okay, completed.");
+		}
+		return new FTPResponse(550, "Requested action not taken.");
 	}
 
+	@Override
 	public void executeState(Context context, State state) {
 		state.concreteExecuteRequest(context, this);
 	}

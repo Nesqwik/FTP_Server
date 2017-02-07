@@ -25,6 +25,9 @@ public class Client implements Runnable {
 	
 	private Context context;
 	
+	private String dataAddr;
+	private int dataPort;
+	
 	public Client(Socket client) throws IOException {
 		this.cmdSocket = client;
 		
@@ -33,9 +36,9 @@ public class Client implements Runnable {
 		cmdWriter = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 	}
 	
-	public void connectDataSocket(String addr, int port) {
+	public void connectDataSocket() {
 		try {
-			dataSocket = new Socket(addr, port);
+			dataSocket = new Socket(dataAddr, dataPort);
 			dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 			dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 		} catch (IOException e) {
@@ -43,8 +46,12 @@ public class Client implements Runnable {
 		}
 	}
 	
-	public void connectDataSocket(InetSocketAddress socketAddr) {
-		connectDataSocket(socketAddr.getHostString(), socketAddr.getPort());
+	public void closeDataSocket() {
+		try {
+			dataSocket.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void sendStringData(String data) {
@@ -53,8 +60,7 @@ public class Client implements Runnable {
 			dataWriter.write(data + "\r\n");
 			dataWriter.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -92,5 +98,21 @@ public class Client implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public String getDataAddr() {
+		return dataAddr;
+	}
+
+	public void setDataAddr(String dataAddr) {
+		this.dataAddr = dataAddr;
+	}
+
+	public int getDataPort() {
+		return dataPort;
+	}
+
+	public void setDataPort(int dataPort) {
+		this.dataPort = dataPort;
 	}
 }

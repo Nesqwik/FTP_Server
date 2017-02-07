@@ -6,20 +6,25 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
 
-public class FTPRequestPwd extends FTPRequest {
+public class FTPRequestCWD extends  FTPRequest {
 
+	public FTPRequestCWD(String message) {
+		this.message = message;
+	}
+	
 	@Override
 	public Commands getCommand() {
-		return Commands.PWD;
+		return Commands.CWD;
 	}
 
 	@Override
 	public FTPResponse execute(Context context) {
-		return new FTPResponse(257, context.getFileSystem().pwd());
+		context.getFileSystem().cwd(getMessage());
+		return new FTPResponse(250, "Directory successfully changed.");
 	}
 
 	public void executeState(Context context, State state) {
 		state.concreteExecuteRequest(context, this);
 	}
-
+	
 }

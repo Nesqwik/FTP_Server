@@ -13,6 +13,10 @@ public abstract class FTPRequest {
 		this.message = null;
 	}
 	
+	public FTPRequest(String message) {
+		this.message = message;
+	}
+	
 	public abstract Commands getCommand();
 	public abstract FTPResponse execute(Context context);
 	

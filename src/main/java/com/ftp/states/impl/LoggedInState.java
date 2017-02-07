@@ -1,17 +1,17 @@
 package com.ftp.states.impl;
 
-import java.net.InetSocketAddress;
-
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.cmd.requests.impl.FTPRequestCDUP;
+import com.ftp.cmd.requests.impl.FTPRequestCWD;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
-import com.ftp.cmd.requests.impl.FTPRequestList;
+import com.ftp.cmd.requests.impl.FTPRequestMKD;
 import com.ftp.cmd.requests.impl.FTPRequestPwd;
+import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestType;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
-import com.ftp.utils.Parser;
 
 public class LoggedInState extends State {
 
@@ -29,23 +29,43 @@ public class LoggedInState extends State {
 		handleRequest(context, request);
 	}
 	
+	@Override
+	public void concreteExecuteRequest(Context context, FTPRequestCWD request) {
+		FTPResponse response = request.execute(context);
+		context.getClient().sendResponse(response);
+	}
+	
 	public void concreteExecuteRequest(Context context, FTPRequestType request) {
 		handleRequest(context, request);
 	}
 	
 	public void concreteExecuteRequest(Context context, FTPRequestEprt request) {
+		FTPResponse response = request.execute(context);
+		context.setCurrentState(new DataConnectedState());
+		context.getClient().sendResponse(response);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestMKD request) {
+		FTPResponse response = request.execute(context);
+		context.getClient().sendResponse(response);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestRMD request) {
 		handleRequest(context, request);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestList request) {
+	public void concreteExecuteRequest(Context context, FTPRequestCDUP request) {
 		handleRequest(context, request);
 	}
+	
+	
 	
 	// TODO : Ajouter command PORT + passer état DataConnected
 	
 	
 	private void handleRequest(Context context, FTPRequest request) {
 		FTPResponse response = request.execute(context);
+		
 		context.getClient().sendResponse(response);
 	}
 	

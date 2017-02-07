@@ -1,11 +1,15 @@
 package com.ftp.cmd;
 
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.cmd.requests.impl.FTPRequestCDUP;
+import com.ftp.cmd.requests.impl.FTPRequestCWD;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
+import com.ftp.cmd.requests.impl.FTPRequestMKD;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestPwd;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
+import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
@@ -72,6 +76,30 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(String message) {
 			return new FTPRequestEprt(message);
+		}
+	},
+	CWD("CWD") {
+		@Override
+		public FTPRequest makeRequest(String message) {
+			return new FTPRequestCWD(message);
+		}
+	},
+	MKD("MKD") {
+		@Override
+		public FTPRequest makeRequest(String message) {
+			return new FTPRequestMKD(message);
+		}
+	},
+	RMD("RMD") {
+		@Override
+		public FTPRequest makeRequest(String message) {
+			return new FTPRequestRMD(message);
+		}
+	},
+	CDUP("CDUP") {
+		@Override
+		public FTPRequest makeRequest(String message) {
+			return new FTPRequestCDUP();
 		}
 	};
 	

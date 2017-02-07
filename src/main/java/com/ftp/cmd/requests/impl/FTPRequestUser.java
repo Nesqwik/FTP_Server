@@ -20,6 +20,10 @@ public class FTPRequestUser extends FTPRequest {
 	@Override
 	public FTPResponse execute(Context context) {
 		// TODO: handle the login (check existance...)
+		
+		String username = getMessage();
+		
+		context.setUsername(username);
 		return new FTPResponse(331, "User name ok, need password");
 	}
 

@@ -4,6 +4,7 @@ import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
+import com.ftp.database.Database;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
 
@@ -23,8 +24,11 @@ public class UserState extends State {
 	public void concreteExecuteRequest(Context context, FTPRequestPass request) {
 		FTPResponse response = request.execute(context);
 		
-		if(response.getCode() == 230)
+		if(response.getCode() == 230) {
+			String rootDirectory = Database.getInstance().getUserRootDirectory(context.getUsername());
+			context.setFileSystem(rootDirectory);
 			context.setCurrentState(new LoggedInState());
+		}
 		
 		context.getClient().sendResponse(response);
 	}

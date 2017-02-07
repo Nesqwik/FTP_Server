@@ -23,7 +23,9 @@ public class FTPRequestEprt extends FTPRequest {
 	@Override
 	public FTPResponse execute(Context context) {
 		InetSocketAddress socketAddr = Parser.parseEPRT(getMessage());
-		context.getClient().connectDataSocket(socketAddr);
+		
+		context.getClient().setDataAddr(socketAddr.getHostString());
+		context.getClient().setDataPort(socketAddr.getPort());
 		return new FTPResponse(200, "ok");
 	}
 
