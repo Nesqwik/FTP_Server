@@ -10,12 +10,13 @@ public class Context {
 	private State currentState;
 	private String username = null;
 	private FileSystem fileSystem;
-
+	
 	public Context(Client client) {
 		this.client = client;
 		this.currentState = new InitialState();
 	}
 	
+			
 	/**
 	 * @return the client
 	 */

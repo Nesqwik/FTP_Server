@@ -1,5 +1,6 @@
 package com.ftp.utils;
 
+import java.net.InetSocketAddress;
 import java.text.ParseException;
 
 import com.ftp.cmd.Commands;
@@ -25,8 +26,14 @@ public class Parser {
 			System.out.println(code + " : " + message);
 			return Commands.valueOf(code).makeRequest(message);
 		} catch (IllegalArgumentException e) {
-			System.out.println(code + " : " + message);
 			throw new ParseException("Unknown command sent", 0);
 		}
+	}
+	
+	public static InetSocketAddress parseEPRT(String requestMessage) {
+		String[] words = requestMessage.split("\\|");
+		String hostname = words[2];
+		int port = Integer.parseInt(words[3]);
+		return new InetSocketAddress(hostname, port);
 	}
 }

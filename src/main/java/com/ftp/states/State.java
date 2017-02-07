@@ -2,12 +2,15 @@ package com.ftp.states;
 
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
+import com.ftp.cmd.requests.impl.FTPRequestPwd;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
+import com.ftp.cmd.requests.impl.FTPRequestType;
 import com.ftp.cmd.requests.impl.FTPRequestUser;
 import com.ftp.utils.Context;
 
@@ -38,6 +41,18 @@ public abstract class State {
 	}
 	
 	public void concreteExecuteRequest(Context context, FTPRequestSyst request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestPwd request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestType request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestEprt request) {
 		sendNotImplementedResponse(context);
 	}
 	

@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.text.ParseException;
 
@@ -14,18 +15,47 @@ import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
 public class Client implements Runnable {
-	private Socket client;
-	private BufferedReader reader;
-	private BufferedWriter writer;
+	private Socket cmdSocket;
+	private BufferedReader cmdReader;
+	private BufferedWriter cmdWriter;
+	
+	private Socket dataSocket;
+	private BufferedReader dataReader;
+	private BufferedWriter dataWriter;
 	
 	private Context context;
 	
 	public Client(Socket client) throws IOException {
-		this.client = client;
+		this.cmdSocket = client;
 		
 		context = new Context(this);
-		reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+		cmdReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		cmdWriter = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+	}
+	
+	public void connectDataSocket(String addr, int port) {
+		try {
+			dataSocket = new Socket(addr, port);
+			dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
+			dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void connectDataSocket(InetSocketAddress socketAddr) {
+		connectDataSocket(socketAddr.getHostString(), socketAddr.getPort());
+	}
+	
+	public void sendStringData(String data) {
+		try {
+			System.out.println(data + "\r\n");
+			dataWriter.write(data + "\r\n");
+			dataWriter.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void run() {		
@@ -33,7 +63,7 @@ public class Client implements Runnable {
 			String request = "";
 			sendResponse(new FTPResponse(220, "awaiting input"));
 			System.out.println("waiting for requests");
-			while((request = reader.readLine()) != null) {
+			while((request = cmdReader.readLine()) != null) {
 				try {
 					FTPRequest ftpRequest = Parser.parseRequest(request);
 					context.getCurrentState().executeRequest(context, ftpRequest);
@@ -48,8 +78,9 @@ public class Client implements Runnable {
 	
 	public void sendResponse(FTPResponse response) {
 		try {
-			writer.write(response.toString() + "\n");
-			writer.flush();
+			cmdWriter.write(response.toString() + "\r\n");
+			System.out.println(response.toString() + "\r\n");
+			cmdWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +88,7 @@ public class Client implements Runnable {
 	
 	public void quit() {
 		try {
-			client.close();
+			cmdSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,10 +1,17 @@
 package com.ftp.states.impl;
 
+import java.net.InetSocketAddress;
+
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.cmd.requests.impl.FTPRequestEprt;
+import com.ftp.cmd.requests.impl.FTPRequestList;
+import com.ftp.cmd.requests.impl.FTPRequestPwd;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
+import com.ftp.cmd.requests.impl.FTPRequestType;
 import com.ftp.states.State;
 import com.ftp.utils.Context;
+import com.ftp.utils.Parser;
 
 public class LoggedInState extends State {
 
@@ -15,6 +22,22 @@ public class LoggedInState extends State {
 	}
 	
 	public void concreteExecuteRequest(Context context, FTPRequestSyst request) {
+		handleRequest(context, request);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestPwd request) {
+		handleRequest(context, request);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestType request) {
+		handleRequest(context, request);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestEprt request) {
+		handleRequest(context, request);
+	}
+	
+	public void concreteExecuteRequest(Context context, FTPRequestList request) {
 		handleRequest(context, request);
 	}
 	
