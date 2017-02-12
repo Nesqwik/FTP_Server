@@ -8,7 +8,7 @@ import com.ftp.utils.Context;
 
 public class FTPRequestUser extends FTPRequest {
 	
-	public FTPRequestUser(String message) {
+	public FTPRequestUser(final String message) {
 		this.message = message;
 	}
 
@@ -18,16 +18,15 @@ public class FTPRequestUser extends FTPRequest {
 	}
 
 	@Override
-	public FTPResponse execute(Context context) {
-		// TODO: handle the login (check existance...)
-		
-		String username = getMessage();
+	public FTPResponse execute(final Context context) {
+		final String username = getMessage();
 		
 		context.setUsername(username);
 		return new FTPResponse(331, "User name ok, need password");
 	}
 
-	public void executeState(Context context, State state) {
+	@Override
+	public void executeState(final Context context, final State state) {
 		state.concreteExecuteRequest(context, this);
 	}
 }

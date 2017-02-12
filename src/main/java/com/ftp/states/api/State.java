@@ -8,8 +8,9 @@ import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
+import com.ftp.cmd.requests.impl.FTPRequestPWD;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
-import com.ftp.cmd.requests.impl.FTPRequestPwd;
+import com.ftp.cmd.requests.impl.FTPRequestPort;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
@@ -49,7 +50,7 @@ public abstract class State {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(final Context context, final FTPRequestPwd request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestPWD request) {
 		sendNotImplementedResponse(context);
 	}
 	
@@ -78,6 +79,10 @@ public abstract class State {
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(final Context context, final FTPRequestPort request) {
 		sendNotImplementedResponse(context);
 	}
 

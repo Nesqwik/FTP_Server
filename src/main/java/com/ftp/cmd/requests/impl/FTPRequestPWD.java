@@ -6,7 +6,7 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
-public class FTPRequestPwd extends FTPRequest {
+public class FTPRequestPWD extends FTPRequest {
 
 	@Override
 	public Commands getCommand() {

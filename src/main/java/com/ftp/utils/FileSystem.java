@@ -108,7 +108,7 @@ public class FileSystem {
 
 	public String pwd() {
 		// TODO: envoyer chemin relatif au rootDirectory du user
-		return currentDirectory;
+		return "\"" + currentDirectory.replaceAll("\"", "\"\"") + "\"";
 	}
 
 	public boolean mkd(final String newFilePath) {
@@ -138,6 +138,7 @@ public class FileSystem {
 	}
 
 	public void cdup() throws FileNotFoundException {
+		//TODO: check if works as expected
 		cwd("/..");
 	}
 

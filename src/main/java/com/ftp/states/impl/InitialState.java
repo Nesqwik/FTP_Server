@@ -21,7 +21,6 @@ public class InitialState extends State {
 	public void concreteExecuteRequest(final Context context, final FTPRequestUser request) {
 		final FTPResponse response = request.execute(context);
 		
-		//TODO: ne pas changer de state si le login rate
 		context.setCurrentState(StateFactory.getUserState());
 		context.getClient().sendResponse(response);
 	}

@@ -10,24 +10,20 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
-public class FTPRequestEprt extends FTPRequest {
+public class FTPRequestPort extends FTPRequest {
 
-	public FTPRequestEprt(final String message) {
-		this.message = message;
-	}
-	
-	@Override
-	public Commands getCommand() {
-		return Commands.EPRT;
+	public FTPRequestPort(final String message) {
+		super(message);
 	}
 
 	@Override
 	public FTPResponse execute(final Context context) {
 		try {
-			final InetSocketAddress socketAddr = Parser.parseEPRT(getMessage());
+			final InetSocketAddress socketAddr = Parser.parsePORT(getMessage());
+			
 			context.getClient().setDataAddr(socketAddr.getHostString());
 			context.getClient().setDataPort(socketAddr.getPort());
-			return new FTPResponse(200, "ok");
+			return new FTPResponse(200, "Command okay.");
 		} catch (final ParseException e) {
 			return new FTPResponse(501, "Syntax error in parameters or arguments.");
 		}
@@ -38,4 +34,8 @@ public class FTPRequestEprt extends FTPRequest {
 		state.concreteExecuteRequest(context, this);
 	}
 
+	@Override
+	public Commands getCommand() {
+		return Commands.PORT;
+	}
 }

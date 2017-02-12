@@ -34,6 +34,10 @@ public class Database {
 	public boolean doesUserExist(final String user) {
 		return users.containsKey(user);
 	}
+	
+	public boolean logIn(final String username, final String password) {
+		return doesUserExist(username) && isPasswordCorrect(username, password);
+	}
 
 	public String getUserRootDirectory(final String username) {
 		return userDirectories.get(username);

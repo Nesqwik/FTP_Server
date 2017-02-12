@@ -7,8 +7,9 @@ import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
+import com.ftp.cmd.requests.impl.FTPRequestPWD;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
-import com.ftp.cmd.requests.impl.FTPRequestPwd;
+import com.ftp.cmd.requests.impl.FTPRequestPort;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
@@ -64,7 +65,7 @@ public enum Commands {
 	PWD("PWD") {
 		@Override
 		public FTPRequest makeRequest(final String message) {
-			return new FTPRequestPwd();
+			return new FTPRequestPWD();
 		}
 	},
 	TYPE("TYPE") {
@@ -107,6 +108,12 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(final String message) {
 			return new FTPRequestDele(message);
+		}
+	},
+	PORT("PORT") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestPort(message);
 		}
 	};
 	

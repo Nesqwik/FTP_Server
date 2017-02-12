@@ -28,11 +28,37 @@ public class Parser {
 			throw new ParseException("Unknown command sent", 0);
 		}
 	}
-	
-	public static InetSocketAddress parseEPRT(final String requestMessage) {
+	/**
+	 * Parses eprt request
+	 * @param requestMessage should be formatted as follows :
+	 * 	EPRT : |2|client_address|client_data_port|
+	 * @return
+	 * @throws ParseException
+	 */
+	public static InetSocketAddress parseEPRT(final String requestMessage) throws ParseException {
 		final String[] words = requestMessage.split("\\|");
+		System.out.println("eprt:" + requestMessage);
+		if (words.length != 4) {
+			throw new ParseException("The PORT message is badly formatted", 0);
+		}
 		final String hostname = words[2];
 		final int port = Integer.parseInt(words[3]);
 		return new InetSocketAddress(hostname, port);
+	}
+	
+	public static InetSocketAddress parsePORT(final String requestMessage) throws ParseException {
+		try {
+			final String[] words = requestMessage.split(",");
+			if (words.length != 6) {
+				throw new Exception();
+			}
+			
+			final String hostname = words[0] + "." + words[1] + "." + words[2] + "." + words[3];
+			final int port = Integer.parseInt(words[4]) * 256 + Integer.parseInt(words[5]);
+
+			return new InetSocketAddress(hostname, port);
+		} catch (final Exception e) {
+			throw new ParseException("The PORT message is badly formatted", 0);
+		}
 	}
 }
