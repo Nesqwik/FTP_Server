@@ -16,7 +16,6 @@ public class FileSystem {
 	private final String rootDirectory;
 	
 	public FileSystem(final String userDirectory) {
-		//this.rootDirectory = System.getProperty("user.dir") + userDirectory;
 		this.rootDirectory = userDirectory;
 		this.currentDirectory = "/";
 		
@@ -58,16 +57,10 @@ public class FileSystem {
 		this.currentDirectory = Paths.get(path).normalize().toString().replace('\\', '/');
 	}
 	
-	public void writeFileToBuffer(final String fileName, final DataOutputStream dos) {
-		try {
-			final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
-			final DataInputStream dis = new DataInputStream(new FileInputStream(file));
-			transfertInputStream(dis, dos);
-			dis.close();
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void writeFileToBuffer(final String fileName, final DataOutputStream dos) throws IOException{
+		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
+		final DataInputStream dis = new DataInputStream(new FileInputStream(file));
+		transfertInputStream(dis, dos);
 	}
 	
 	private void transfertInputStream(final DataInputStream dis, final DataOutputStream dos) {
@@ -83,16 +76,10 @@ public class FileSystem {
 		}
 	}
 	
-	public void writeFileToSystem(final String fileName, final DataInputStream dis) {
-		try {
-			final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
-			final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
-			transfertInputStream(dis, dos);
-			dos.close();
-		} catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void writeFileToSystem(final String fileName, final DataInputStream dis) throws IOException {
+		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
+		final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
+		transfertInputStream(dis, dos);
 	}
 
 	public void cwd(final String newDirectory) throws IOException {

@@ -1,6 +1,7 @@
 package com.ftp.cmd.requests.impl;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
@@ -25,10 +26,18 @@ public class FTPRequestRetr extends FTPRequest {
 		context.getClient().connectDataSocket();
 		
 		final DataOutputStream dos = context.getClient().getDataOutputStream();
-		context.getFileSystem().writeFileToBuffer(getMessage(), dos);
 		
-		context.getClient().closeDataSocket();
-		return new FTPResponse(200, "ok");
+		try {
+			context.getFileSystem().writeFileToBuffer(getMessage(), dos);
+			dos.close();
+			
+			return new FTPResponse(200, "ok");
+		} catch (final IOException e) {
+			context.getClient().closeDataSocket();
+			return new FTPResponse(451, "Requested action aborted: local error in processing.");
+		} finally {
+			
+		}
 	}
 
 	@Override
