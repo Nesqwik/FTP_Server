@@ -2,9 +2,9 @@ package com.ftp.states.impl;
 
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
-import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestUser;
-import com.ftp.states.State;
+import com.ftp.states.StateFactory;
+import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 public class InitialState extends State {
@@ -12,17 +12,17 @@ public class InitialState extends State {
 	public InitialState() {	}
 
 	@Override
-	public void executeRequest(Context context, FTPRequest request) {
+	public void executeRequest(final Context context, final FTPRequest request) {
 		super.executeRequest(context, request);
 		request.executeState(context, this);
 	}
 	
 	@Override
-	public void concreteExecuteRequest(Context context, FTPRequestUser request) {
-		FTPResponse response = request.execute(context);
+	public void concreteExecuteRequest(final Context context, final FTPRequestUser request) {
+		final FTPResponse response = request.execute(context);
 		
-		context.setCurrentState(new UserState());
-		
+		//TODO: ne pas changer de state si le login rate
+		context.setCurrentState(StateFactory.getUserState());
 		context.getClient().sendResponse(response);
 	}
 	

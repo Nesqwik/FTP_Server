@@ -5,13 +5,14 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.database.Database;
-import com.ftp.states.State;
+import com.ftp.states.StateFactory;
+import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 public class UserState extends State {
 
 	@Override
-	public void executeRequest(Context context, FTPRequest request) {
+	public void executeRequest(final Context context, final FTPRequest request) {
 		super.executeRequest(context, request);
 		request.executeState(context, this);
 	}
@@ -21,19 +22,21 @@ public class UserState extends State {
 		return "user";
 	}
 
-	public void concreteExecuteRequest(Context context, FTPRequestPass request) {
-		FTPResponse response = request.execute(context);
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestPass request) {
+		final FTPResponse response = request.execute(context);
 		
 		if(response.getCode() == 230) {
-			String rootDirectory = Database.getInstance().getUserRootDirectory(context.getUsername());
+			final String rootDirectory = Database.getInstance().getUserRootDirectory(context.getUsername());
 			context.setFileSystem(rootDirectory);
-			context.setCurrentState(new LoggedInState());
+			context.setCurrentState(StateFactory.getLoggedInState());
 		}
 		
 		context.getClient().sendResponse(response);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestQuit request) {
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestQuit request) {
 		request.execute(context);
 	}
 

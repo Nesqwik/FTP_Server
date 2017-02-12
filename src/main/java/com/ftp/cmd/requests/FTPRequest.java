@@ -2,7 +2,7 @@ package com.ftp.cmd.requests;
 
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
-import com.ftp.states.State;
+import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 public abstract class FTPRequest {

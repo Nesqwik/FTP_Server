@@ -1,8 +1,8 @@
 package com.ftp.utils;
 
 import com.ftp.Client;
-import com.ftp.states.State;
-import com.ftp.states.impl.InitialState;
+import com.ftp.states.StateFactory;
+import com.ftp.states.api.State;
 
 public class Context {
 	
@@ -11,9 +11,9 @@ public class Context {
 	private String username = null;
 	private FileSystem fileSystem;
 	
-	public Context(Client client) {
+	public Context(final Client client) {
 		this.client = client;
-		this.currentState = new InitialState();
+		this.currentState = StateFactory.getInitialState();
 	}
 	
 			
@@ -27,7 +27,7 @@ public class Context {
 	/**
 	 * @param client the client to set
 	 */
-	public void setClient(Client client) {
+	public void setClient(final Client client) {
 		this.client = client;
 	}
 
@@ -41,7 +41,7 @@ public class Context {
 	/**
 	 * @param currentState the currentState to set
 	 */
-	public void setCurrentState(State currentState) {
+	public void setCurrentState(final State currentState) {
 		this.currentState = currentState;
 	}
 
@@ -55,7 +55,7 @@ public class Context {
 	/**
 	 * @param username the username to set
 	 */
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -63,7 +63,7 @@ public class Context {
 		return fileSystem;
 	}
 
-	public void setFileSystem(String rootDirectory) {
+	public void setFileSystem(final String rootDirectory) {
 		this.fileSystem = new FileSystem(rootDirectory);
 	}
 
