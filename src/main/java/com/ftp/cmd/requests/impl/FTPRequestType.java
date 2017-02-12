@@ -13,12 +13,12 @@ public class FTPRequestType extends FTPRequest {
 	}
 
 	@Override
-	public FTPResponse execute(Context context) {
-		return new FTPResponse(200, "ASCII Non-print");
+	public FTPResponse execute(final Context context) {
+		return new FTPResponse(200, "ok");
 	}
 
 	@Override
-	public void executeState(Context context, State state) {
+	public void executeState(final Context context, final State state) {
 		state.concreteExecuteRequest(context, this);
 	}
 

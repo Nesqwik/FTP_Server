@@ -1,7 +1,12 @@
 package com.ftp.utils;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
@@ -44,20 +49,60 @@ public class FileSystem {
 		// Replace for windows
 		this.currentDirectory = Paths.get(path).normalize().toString().replace('\\', '/');
 	}
+	
+	public void writeFileToBuffer(final String fileName, final DataOutputStream dos) {
+		try {
+			final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
+			final DataInputStream dis = new DataInputStream(new FileInputStream(file));
+			transfertInputStream(dis, dos);
+			dis.close();
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void transfertInputStream(final DataInputStream dis, final DataOutputStream dos) {
+		try {
+			final byte[] buffer = new byte[2048];
+			int nbByte = 0;
+			while((nbByte = dis.read(buffer)) != -1) {
+				dos.write(buffer, 0, nbByte);
+			}
+			dos.flush();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeFileToSystem(final String fileName, final DataInputStream dis) {
+		try {
+			final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
+			final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
+			transfertInputStream(dis, dos);
+			dos.close();
+		} catch (final IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	public void cwd(final String newDirectory) {		
+	public void cwd(String newDirectory) throws FileNotFoundException {
 		if (newDirectory.startsWith("/")) {
 			System.out.println("Is absolute !");
-			setCurrentDirectory(newDirectory);
 		} else {
 			System.out.println("Is Relatif !");
 			if(currentDirectory.equals("/")){
-				setCurrentDirectory(currentDirectory + newDirectory);
+				newDirectory = currentDirectory + newDirectory;
 			} else {				
-				setCurrentDirectory(currentDirectory + "/" + newDirectory);
+				newDirectory = currentDirectory + "/" + newDirectory;
 			}
-			
-			// TODO : quand on fait .., .. reste dans le absolute path => c'est moche
+		}
+		final File file = new File(rootDirectory + "/" + newDirectory);
+		if(file.exists()) {
+			setCurrentDirectory(newDirectory);
+		} else {
+			throw new FileNotFoundException();
 		}
 	}
 
@@ -92,7 +137,12 @@ public class FileSystem {
 		return new File(getAbsoluteCurrentPath() + "/" + filePath).delete();
 	}
 
-	public void cdup() {
+	public void cdup() throws FileNotFoundException {
 		cwd("/..");
+	}
+
+	public boolean dele(final String fileName) {
+		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
+		return file.delete();
 	}
 }

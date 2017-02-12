@@ -4,6 +4,7 @@ import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestCDUP;
 import com.ftp.cmd.requests.impl.FTPRequestCWD;
+import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
 import com.ftp.cmd.requests.impl.FTPRequestPwd;
@@ -16,55 +17,65 @@ import com.ftp.utils.Context;
 public class LoggedInState extends State {
 
 	@Override
-	public void executeRequest(Context context, FTPRequest request) {
+	public void executeRequest(final Context context, final FTPRequest request) {
 		super.executeRequest(context, request);
 		request.executeState(context, this);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestSyst request) {
-		handleRequest(context, request);
-	}
-	
-	public void concreteExecuteRequest(Context context, FTPRequestPwd request) {
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestSyst request) {
 		handleRequest(context, request);
 	}
 	
 	@Override
-	public void concreteExecuteRequest(Context context, FTPRequestCWD request) {
-		FTPResponse response = request.execute(context);
-		context.getClient().sendResponse(response);
-	}
-	
-	public void concreteExecuteRequest(Context context, FTPRequestType request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestPwd request) {
 		handleRequest(context, request);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestEprt request) {
-		FTPResponse response = request.execute(context);
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestCWD request) {
+		final FTPResponse response = request.execute(context);
+		context.getClient().sendResponse(response);
+	}
+	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestType request) {
+		handleRequest(context, request);
+	}
+	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestEprt request) {
+		final FTPResponse response = request.execute(context);
 		context.setCurrentState(new DataConnectedState());
 		context.getClient().sendResponse(response);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestMKD request) {
-		FTPResponse response = request.execute(context);
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestMKD request) {
+		final FTPResponse response = request.execute(context);
 		context.getClient().sendResponse(response);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestRMD request) {
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestRMD request) {
 		handleRequest(context, request);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestCDUP request) {
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestCDUP request) {
 		handleRequest(context, request);
 	}
 	
-	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
+		handleRequest(context, request);
+	}
 	
 	// TODO : Ajouter command PORT + passer état DataConnected
 	
 	
-	private void handleRequest(Context context, FTPRequest request) {
-		FTPResponse response = request.execute(context);
+	private void handleRequest(final Context context, final FTPRequest request) {
+		final FTPResponse response = request.execute(context);
 		
 		context.getClient().sendResponse(response);
 	}

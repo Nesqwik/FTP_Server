@@ -1,5 +1,7 @@
 package com.ftp.cmd.requests.impl;
 
+import java.io.DataInputStream;
+
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
@@ -8,7 +10,7 @@ import com.ftp.utils.Context;
 
 public class FTPRequestStor extends FTPRequest {
 	
-	public FTPRequestStor(String message) {
+	public FTPRequestStor(final String message) {
 		this.message = message;
 	}
 
@@ -18,11 +20,19 @@ public class FTPRequestStor extends FTPRequest {
 	}
 
 	@Override
-	public FTPResponse execute(Context context) {
+	public FTPResponse execute(final Context context) {
+		context.getClient().sendResponse(new FTPResponse(150, "File status okay; about to open data connection."));
+		context.getClient().connectDataSocket();
+		
+		final DataInputStream dis = context.getClient().getDataInputStream();
+		context.getFileSystem().writeFileToSystem(getMessage(), dis);
+		
+		context.getClient().closeDataSocket();
 		return new FTPResponse(200, "ok");
 	}
 
-	public void executeState(Context context, State state) {
+	@Override
+	public void executeState(final Context context, final State state) {
 		state.concreteExecuteRequest(context, this);
 	}
 }

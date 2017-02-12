@@ -4,6 +4,7 @@ import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestCDUP;
 import com.ftp.cmd.requests.impl.FTPRequestCWD;
+import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
@@ -19,64 +20,68 @@ import com.ftp.cmd.requests.impl.FTPRequestUser;
 import com.ftp.utils.Context;
 
 public abstract class State {
-	public void executeRequest(Context context, FTPRequest request) {
+	public void executeRequest(final Context context, final FTPRequest request) {
 		System.out.println("State '" + getName() + "' receiving request " + request.getCommand());
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestUser request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestUser request) {
 		sendNotImplementedResponse(context);
 	}
-	public void concreteExecuteRequest(Context context, FTPRequestList request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestList request) {
 		sendNotImplementedResponse(context);
 	}
-	public void concreteExecuteRequest(Context context, FTPRequestPass request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestPass request) {
 		sendNotImplementedResponse(context);
 	}
-	public void concreteExecuteRequest(Context context, FTPRequestQuit request) {
-		FTPResponse response = request.execute(context);
+	public void concreteExecuteRequest(final Context context, final FTPRequestQuit request) {
+		final FTPResponse response = request.execute(context);
 		context.getClient().sendResponse(response);
 		context.getClient().quit();
 	}
-	public void concreteExecuteRequest(Context context, FTPRequestRetr request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestRetr request) {
 		sendNotImplementedResponse(context);
 	}
-	public void concreteExecuteRequest(Context context, FTPRequestStor request) {
-		sendNotImplementedResponse(context);
-	}
-	
-	public void concreteExecuteRequest(Context context, FTPRequestSyst request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestStor request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestPwd request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestSyst request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestType request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestPwd request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestEprt request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestType request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestCWD request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestEprt request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestMKD request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestCWD request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestRMD request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestMKD request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	public void concreteExecuteRequest(Context context, FTPRequestCDUP request) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestRMD request) {
 		sendNotImplementedResponse(context);
 	}
 	
-	protected void sendNotImplementedResponse(Context context) {
+	public void concreteExecuteRequest(final Context context, final FTPRequestCDUP request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
+		sendNotImplementedResponse(context);
+	}
+	
+	protected void sendNotImplementedResponse(final Context context) {
         //TODO: 530 Not logged in.
 		context.getClient().sendResponse(FTPResponse.getCommandNotImplementedResponse());
 	}
