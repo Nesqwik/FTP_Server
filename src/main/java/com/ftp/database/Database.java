@@ -5,27 +5,25 @@ import java.util.Map;
 
 public class Database {
 	private static Database instance = new Database();
-	private Map<String, String> users = new HashMap<>();
+	private final Map<String, String> users = new HashMap<>();
 	
-	private Map<String, String> userDirectories = new HashMap<>();
+	private final Map<String, String> userDirectories = new HashMap<>();
 	
 	private Database() {
 		users.put("admin", "password");
 		users.put("toto", "toto");
 		users.put("anonymous", "");
-		
-		String root = System.getProperty("user.dir");
-		
-		userDirectories.put("admin", root + "/directories/admin");
-		userDirectories.put("toto", root + "/directories/toto");
-		userDirectories.put("anonymous", root + "/directories/anonymous");
+				
+		userDirectories.put("admin", "/directories/admin");
+		userDirectories.put("toto", "/directories/toto");
+		userDirectories.put("anonymous", "/directories/anonymous");
 	}
 	
 	public static Database getInstance() {
 		return instance;
 	}
 	
-	public boolean isPasswordCorrect(String user, String password) {
+	public boolean isPasswordCorrect(final String user, final String password) {
 		if(user.equals("anonymous")) {
 			return !password.isEmpty();
 		} else {
@@ -33,11 +31,11 @@ public class Database {
 		}
 	}
 	
-	public boolean doesUserExist(String user) {
+	public boolean doesUserExist(final String user) {
 		return users.containsKey(user);
 	}
 
-	public String getUserRootDirectory(String username) {
+	public String getUserRootDirectory(final String username) {
 		return userDirectories.get(username);
 	}
 }
