@@ -83,7 +83,7 @@ public class Client implements Runnable {
 			String request = "";
 			sendResponse(new FTPResponse(220, "awaiting input"));
 			System.out.println("waiting for requests");
-			while((request = cmdReader.readLine()) != null) {
+			while(!cmdSocket.isClosed() && (request = cmdReader.readLine()) != null) {
 				try {
 					final FTPRequest ftpRequest = Parser.parseRequest(request);
 					context.getCurrentState().executeRequest(context, ftpRequest);

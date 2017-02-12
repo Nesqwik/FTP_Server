@@ -1,6 +1,6 @@
 package com.ftp.cmd.requests.impl;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
@@ -23,7 +23,7 @@ public class FTPRequestCWD extends  FTPRequest {
 	public FTPResponse execute(final Context context) {
 		try {
 			context.getFileSystem().cwd(getMessage());
-		} catch (final FileNotFoundException e) {
+		} catch (final IOException e) {
 			return new FTPResponse(550, "Requested action not taken.");
 		}
 		return new FTPResponse(250, "Directory successfully changed.");

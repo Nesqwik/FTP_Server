@@ -5,10 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.ParseException;
 
-public class Server {
+import com.ftp.utils.Parser;
+
+public class Main {
 	
-    public static void main(String[] args) throws IOException, ParseException {
-    	Server s = new Server();
+    public static void main(final String[] args) throws IOException, ParseException {
+    	Parser.parseArgs(args);
+    	final Main s = new Main();
     	s.start();
     }
     
@@ -19,12 +22,12 @@ public class Server {
 	    	
 			while(true) {
 				System.out.println("Accepting...");
-				Socket clientSocket = cmdSocket.accept();
+				final Socket clientSocket = cmdSocket.accept();
 				System.out.println("Client accepted !");
 				
 				new Thread(new Client(clientSocket)).start();
 			}
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
     }

@@ -9,14 +9,20 @@ public class Database {
 	
 	private final Map<String, String> userDirectories = new HashMap<>();
 	
+	private String usersDirectoriesRoot = "directories";
+	
 	private Database() {
 		users.put("admin", "password");
 		users.put("toto", "toto");
 		users.put("anonymous", "");
-				
-		userDirectories.put("admin", "/directories/admin");
-		userDirectories.put("toto", "/directories/toto");
-		userDirectories.put("anonymous", "/directories/anonymous");
+		
+		setUsersDirectories();
+	}
+	
+	private void setUsersDirectories() {
+		for (final String userName : users.keySet()) {
+			userDirectories.put(userName, usersDirectoriesRoot + "/" + userName);
+		}
 	}
 	
 	public static Database getInstance() {
@@ -41,5 +47,10 @@ public class Database {
 
 	public String getUserRootDirectory(final String username) {
 		return userDirectories.get(username);
+	}
+
+	public void setDirectoriesRoot(final String root) {
+		this.usersDirectoriesRoot = root;
+		setUsersDirectories();
 	}
 }

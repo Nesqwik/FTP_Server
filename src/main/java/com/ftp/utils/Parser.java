@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.database.Database;
 
 public class Parser {
 
@@ -67,5 +68,16 @@ public class Parser {
 			// thrown if the request is badly formatted or if the port section is not a number
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
+	}
+	public static void parseArgs(final String[] args) {
+		System.out.println(args.length);
+		if (args.length >= 2) {
+			System.out.println("0:" + args[0]);
+			if (args[0].equals("-rd")) {
+				System.out.println("1:" + args[1]);
+				Database.getInstance().setDirectoriesRoot(args[1]);
+			}
+		}
+		
 	}
 }

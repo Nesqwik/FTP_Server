@@ -15,7 +15,8 @@ public class FTPRequestPWD extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(final Context context) {
-		return new FTPResponse(257, context.getFileSystem().pwd());
+		final String pwd = context.getFileSystem().pwd();
+		return new FTPResponse(257, pwd);
 	}
 
 	@Override
