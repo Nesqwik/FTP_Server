@@ -87,19 +87,10 @@ public class FileSystem {
 		}
 	}
 
-	public void cwd(String newDirectory) throws FileNotFoundException {
-		if (newDirectory.startsWith("/")) {
-			System.out.println("Is absolute !");
-		} else {
-			System.out.println("Is Relatif !");
-			if(currentDirectory.equals("/")){
-				newDirectory = currentDirectory + newDirectory;
-			} else {				
-				newDirectory = currentDirectory + "/" + newDirectory;
-			}
-		}
-		final File file = new File(rootDirectory + "/" + newDirectory);
-		if(file.exists()) {
+	public void cwd(final String newDirectory) throws FileNotFoundException {
+		final File file = makeFileFromPath(newDirectory);
+		
+		if (file.exists()) {
 			setCurrentDirectory(newDirectory);
 		} else {
 			throw new FileNotFoundException();
@@ -143,7 +134,33 @@ public class FileSystem {
 	}
 
 	public boolean dele(final String fileName) {
-		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
-		return file.delete();
+		return makeFileFromPath(fileName).delete();
+	}
+
+	public boolean doesFileExist(final String filePath) {
+		return makeFileFromPath(filePath).exists();
+	}
+
+	public boolean rename(final String fileToRenamePath, final String newFileName) {
+		final File toRename = makeFileFromPath(fileToRenamePath);
+		final File newName = makeFileFromPath(newFileName);
+		
+		return toRename.renameTo(newName);
+	}
+	
+	protected File makeFileFromPath(final String filePath) {
+		String actualFilePath = "";
+		if (filePath.startsWith("/")) {
+			System.out.println("Is absolute !");
+			actualFilePath = filePath;
+		} else {
+			System.out.println("Is Relatif !");
+			if (currentDirectory.equals("/")){
+				actualFilePath = currentDirectory + filePath;
+			} else {				
+				actualFilePath = currentDirectory + "/" + filePath;
+			}
+		}
+		return new File(rootDirectory + "/" + actualFilePath);
 	}
 }

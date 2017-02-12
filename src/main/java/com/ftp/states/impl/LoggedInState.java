@@ -62,7 +62,7 @@ public class LoggedInState extends DirNavigationState {
 	}
 	
 	@Override
-	protected String getName() {
+	public String getName() {
 		return "LoggedIn";
 	}
 

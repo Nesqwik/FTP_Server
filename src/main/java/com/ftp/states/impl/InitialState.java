@@ -26,7 +26,7 @@ public class InitialState extends State {
 	}
 	
 	@Override
-	protected String getName() {
+	public String getName() {
 		return "initial";
 	}
 }

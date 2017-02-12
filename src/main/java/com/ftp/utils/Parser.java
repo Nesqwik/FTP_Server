@@ -36,14 +36,20 @@ public class Parser {
 	 * @throws ParseException
 	 */
 	public static InetSocketAddress parseEPRT(final String requestMessage) throws ParseException {
-		final String[] words = requestMessage.split("\\|");
-		System.out.println("eprt:" + requestMessage);
-		if (words.length != 4) {
+		try {
+			final String[] words = requestMessage.split("\\|");
+	
+			if (words.length != 4) {
+				throw new Exception();
+			}
+			final String hostname = words[2];
+			final int port = Integer.parseInt(words[3]);
+			
+			return new InetSocketAddress(hostname, port);
+		} catch (final Exception e) {
+			// thrown if the request is badly formatted or if the port section is not a number
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
-		final String hostname = words[2];
-		final int port = Integer.parseInt(words[3]);
-		return new InetSocketAddress(hostname, port);
 	}
 	
 	public static InetSocketAddress parsePORT(final String requestMessage) throws ParseException {
@@ -58,6 +64,7 @@ public class Parser {
 
 			return new InetSocketAddress(hostname, port);
 		} catch (final Exception e) {
+			// thrown if the request is badly formatted or if the port section is not a number
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
 	}

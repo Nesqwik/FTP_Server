@@ -18,7 +18,7 @@ public class UserState extends State {
 	}
 
 	@Override
-	protected String getName() {
+	public String getName() {
 		return "user";
 	}
 

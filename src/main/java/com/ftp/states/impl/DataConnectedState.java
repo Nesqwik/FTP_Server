@@ -55,7 +55,7 @@ public class DataConnectedState extends DirNavigationState {
 	}
 	
 	@Override
-	protected String getName() {
+	public String getName() {
 		return "DataConnected";
 	}
 

@@ -13,6 +13,8 @@ import com.ftp.cmd.requests.impl.FTPRequestPort;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
+import com.ftp.cmd.requests.impl.FTPRequestRnfr;
+import com.ftp.cmd.requests.impl.FTPRequestRnto;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestType;
@@ -114,6 +116,18 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(final String message) {
 			return new FTPRequestPort(message);
+		}
+	},
+	RNFR("RNFR") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestRnfr(message);
+		}
+	},
+	RNTO("RNTO") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestRnto(message);
 		}
 	};
 	

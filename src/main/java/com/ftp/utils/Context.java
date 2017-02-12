@@ -8,6 +8,7 @@ public class Context {
 	
 	private Client client;
 	private State currentState;
+	private State previousState = null;
 	private String username = null;
 	private FileSystem fileSystem;
 	
@@ -42,7 +43,13 @@ public class Context {
 	 * @param currentState the currentState to set
 	 */
 	public void setCurrentState(final State currentState) {
+		previousState = this.currentState;
 		this.currentState = currentState;
+		System.out.println("current state is " + this.currentState.getName());
+	}
+	
+	public State getPreviousState() {
+		return previousState;
 	}
 
 	/**
@@ -66,6 +73,4 @@ public class Context {
 	public void setFileSystem(final String rootDirectory) {
 		this.fileSystem = new FileSystem(rootDirectory);
 	}
-
-
 }

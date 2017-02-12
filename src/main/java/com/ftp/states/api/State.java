@@ -14,6 +14,8 @@ import com.ftp.cmd.requests.impl.FTPRequestPort;
 import com.ftp.cmd.requests.impl.FTPRequestQuit;
 import com.ftp.cmd.requests.impl.FTPRequestRMD;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
+import com.ftp.cmd.requests.impl.FTPRequestRnfr;
+import com.ftp.cmd.requests.impl.FTPRequestRnto;
 import com.ftp.cmd.requests.impl.FTPRequestStor;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestType;
@@ -26,13 +28,13 @@ public abstract class State {
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestUser request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(final Context context, final FTPRequestList request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(final Context context, final FTPRequestPass request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(final Context context, final FTPRequestQuit request) {
 		final FTPResponse response = request.execute(context);
@@ -40,53 +42,61 @@ public abstract class State {
 		context.getClient().quit();
 	}
 	public void concreteExecuteRequest(final Context context, final FTPRequestRetr request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	public void concreteExecuteRequest(final Context context, final FTPRequestStor request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestSyst request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestPWD request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestType request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestEprt request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestCWD request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestMKD request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestRMD request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestCDUP request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
 	}
 	
 	public void concreteExecuteRequest(final Context context, final FTPRequestPort request) {
-		sendNotImplementedResponse(context);
+		onNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(final Context context, final FTPRequestRnfr request) {
+		onNotImplementedResponse(context);
+	}
+	
+	public void concreteExecuteRequest(final Context context, final FTPRequestRnto request) {
+		onNotImplementedResponse(context);
 	}
 
-	protected void sendNotImplementedResponse(final Context context) {
+	protected void onNotImplementedResponse(final Context context) {
         //TODO: 530 Not logged in.
 		context.getClient().sendResponse(FTPResponse.getCommandNotImplementedResponse());
 	}
@@ -96,5 +106,5 @@ public abstract class State {
 		context.getClient().sendResponse(response);
 	}
 	
-	protected abstract String getName();
+	public abstract String getName();
 }
