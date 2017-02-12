@@ -7,7 +7,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 
 import com.ftp.cmd.FTPResponse;
@@ -21,6 +23,7 @@ public class Client implements Runnable {
 	private final BufferedWriter cmdWriter;
 	
 	private Socket dataSocket;
+	private ServerSocket dataSocketPassive;
 	private BufferedReader dataReader;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
@@ -47,8 +50,31 @@ public class Client implements Runnable {
 			dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 			dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 		} catch (final IOException e) {
+			//TODO : replace
 			e.printStackTrace();
 		}
+	}
+	
+	public void connectPassiveDataSocket() throws UnknownHostException, IOException {
+		dataSocketPassive = new ServerSocket(0);
+		dataPort = dataSocketPassive.getLocalPort();
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					dataSocket = dataSocketPassive.accept();
+					dataInputStream = new DataInputStream(dataSocket.getInputStream());
+					dataOutputStream = new DataOutputStream(dataSocket.getOutputStream());
+					dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
+					dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	public void closeDataSocket() {

@@ -69,14 +69,14 @@ public class Parser {
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
 	}
+	
+	public static String makePASVResponse(final String hostname, final int port) {
+		return "=" + hostname.replaceAll(".", ",") + port / 256 + "," + port % 256;
+	}
+	
 	public static void parseArgs(final String[] args) {
-		System.out.println(args.length);
-		if (args.length >= 2) {
-			System.out.println("0:" + args[0]);
-			if (args[0].equals("-rd")) {
-				System.out.println("1:" + args[1]);
-				Database.getInstance().setDirectoriesRoot(args[1]);
-			}
+		if (args.length >= 2 && args[0].equals("-rd")) {
+			Database.getInstance().setDirectoriesRoot(args[1]);
 		}
 		
 	}

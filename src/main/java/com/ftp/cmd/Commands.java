@@ -5,8 +5,10 @@ import com.ftp.cmd.requests.impl.FTPRequestCDUP;
 import com.ftp.cmd.requests.impl.FTPRequestCWD;
 import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
+import com.ftp.cmd.requests.impl.FTPRequestEpsv;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
+import com.ftp.cmd.requests.impl.FTPRequestPASV;
 import com.ftp.cmd.requests.impl.FTPRequestPWD;
 import com.ftp.cmd.requests.impl.FTPRequestPass;
 import com.ftp.cmd.requests.impl.FTPRequestPort;
@@ -128,6 +130,18 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(final String message) {
 			return new FTPRequestRnto(message);
+		}
+	},
+	PASV("PASV") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestPASV(message);
+		}
+	},
+	EPSV("EPSV") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestEpsv(message);
 		}
 	};
 	
