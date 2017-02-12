@@ -2,6 +2,8 @@ package com.ftp.states.impl;
 
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
+import com.ftp.cmd.requests.impl.FTPRequestCDUP;
+import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestType;
@@ -35,6 +37,15 @@ public class LoggedInState extends DirNavigationState {
 	
 	// TODO : Ajouter command PORT + passer état DataConnected
 	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestCDUP request) {
+		handleRequest(context, request);
+	}
+	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
+		handleRequest(context, request);
+	}
 	
 	@Override
 	protected String getName() {

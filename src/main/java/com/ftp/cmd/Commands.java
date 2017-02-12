@@ -3,6 +3,7 @@ package com.ftp.cmd;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestCDUP;
 import com.ftp.cmd.requests.impl.FTPRequestCWD;
+import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
@@ -100,6 +101,12 @@ public enum Commands {
 		@Override
 		public FTPRequest makeRequest(final String message) {
 			return new FTPRequestCDUP();
+		}
+	},
+	DELE("DELE") {
+		@Override
+		public FTPRequest makeRequest(final String message) {
+			return new FTPRequestDele(message);
 		}
 	};
 	

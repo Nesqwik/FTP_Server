@@ -11,7 +11,7 @@ import com.ftp.utils.Parser;
 
 public class FTPRequestEprt extends FTPRequest {
 
-	public FTPRequestEprt(String message) {
+	public FTPRequestEprt(final String message) {
 		this.message = message;
 	}
 	
@@ -21,15 +21,17 @@ public class FTPRequestEprt extends FTPRequest {
 	}
 
 	@Override
-	public FTPResponse execute(Context context) {
-		InetSocketAddress socketAddr = Parser.parseEPRT(getMessage());
+	public FTPResponse execute(final Context context) {
+		// TODO: handle bad format eprt
+		final InetSocketAddress socketAddr = Parser.parseEPRT(getMessage());
 		
 		context.getClient().setDataAddr(socketAddr.getHostString());
 		context.getClient().setDataPort(socketAddr.getPort());
 		return new FTPResponse(200, "ok");
 	}
 
-	public void executeState(Context context, State state) {
+	@Override
+	public void executeState(final Context context, final State state) {
 		state.concreteExecuteRequest(context, this);
 	}
 

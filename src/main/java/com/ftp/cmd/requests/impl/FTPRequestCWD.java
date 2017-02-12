@@ -1,5 +1,7 @@
 package com.ftp.cmd.requests.impl;
 
+import java.io.FileNotFoundException;
+
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
@@ -8,7 +10,7 @@ import com.ftp.utils.Context;
 
 public class FTPRequestCWD extends  FTPRequest {
 
-	public FTPRequestCWD(String message) {
+	public FTPRequestCWD(final String message) {
 		this.message = message;
 	}
 	
@@ -18,12 +20,17 @@ public class FTPRequestCWD extends  FTPRequest {
 	}
 
 	@Override
-	public FTPResponse execute(Context context) {
-		context.getFileSystem().cwd(getMessage());
+	public FTPResponse execute(final Context context) {
+		try {
+			context.getFileSystem().cwd(getMessage());
+		} catch (final FileNotFoundException e) {
+			return new FTPResponse(550, "Requested action not taken.");
+		}
 		return new FTPResponse(250, "Directory successfully changed.");
 	}
 
-	public void executeState(Context context, State state) {
+	@Override
+	public void executeState(final Context context, final State state) {
 		state.concreteExecuteRequest(context, this);
 	}
 	

@@ -4,6 +4,7 @@ import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.cmd.requests.impl.FTPRequestCDUP;
 import com.ftp.cmd.requests.impl.FTPRequestCWD;
+import com.ftp.cmd.requests.impl.FTPRequestDele;
 import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestMKD;
@@ -76,6 +77,10 @@ public abstract class State {
 		sendNotImplementedResponse(context);
 	}
 	
+	public void concreteExecuteRequest(final Context context, final FTPRequestDele request) {
+		sendNotImplementedResponse(context);
+	}
+
 	protected void sendNotImplementedResponse(final Context context) {
         //TODO: 530 Not logged in.
 		context.getClient().sendResponse(FTPResponse.getCommandNotImplementedResponse());
