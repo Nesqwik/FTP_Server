@@ -1,12 +1,15 @@
+
 package com.ftp.cmd.requests.impl;
+
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
 import com.ftp.utils.Context;
-mport com.ftp.utils.Context;
 
 public class FTPRequestUserTest {
 	

@@ -11,7 +11,7 @@ import com.ftp.utils.Context;
 
 public class FTPRequestSystTest {
 	@Test
-	public void testTypeOk() {
+	public void testSystOk() {
 		final FTPRequestSyst cmd = new FTPRequestSyst();
 		final Context context = Mockito.mock(Context.class);
 		assertEquals(new FTPResponse(215, "UNIX").toString(), cmd.execute(context).toString());

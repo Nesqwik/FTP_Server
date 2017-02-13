@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
 import com.ftp.utils.Context;
 

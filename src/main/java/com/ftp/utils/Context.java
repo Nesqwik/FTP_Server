@@ -89,6 +89,14 @@ public class Context {
 	 * crée un système de fichier à partir du dossier racine
 	 * @param rootDirectory le dossier racine
 	 */
+	public void setFileSystem(final FileSystem fileSystem) {
+		this.fileSystem = fileSystem;
+	}
+	
+	/**
+	 * crée un système de fichier à partir du dossier racine
+	 * @param rootDirectory le dossier racine
+	 */
 	public void setFileSystem(final String rootDirectory) {
 		this.fileSystem = new FileSystem(rootDirectory);
 	}
