@@ -8,7 +8,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP PASS 
+ * Commande FTP PASS : permet de soumettre son mot de passe pour la connexion au serveur.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -27,10 +27,10 @@ public class FTPRequestPass extends FTPRequest {
 	public FTPResponse execute(final Context context) {
 		
 		if (Database.getInstance().logIn(context.getUsername(), getMessage())) {
-			return new FTPResponse(230, "User logged in");
+			return new FTPResponse(230, "User logged in.");
 		}
 		
-		return new FTPResponse(530, "Not logged in");
+		return new FTPResponse(530, "Not logged in.");
 	}
 	@Override
 	public void executeState(final Context context, final State state) {

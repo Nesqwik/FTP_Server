@@ -1,6 +1,6 @@
 package com.ftp.cmd;
 /**
- * Classe contenant une réponse destiné au client
+ * Classe contenant une réponse destinée au client
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

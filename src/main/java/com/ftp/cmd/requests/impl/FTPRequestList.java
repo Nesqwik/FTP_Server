@@ -7,7 +7,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP LIST 
+ * Commande FTP LIST : permet de lister le contenu d'un dossier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -23,9 +23,7 @@ public class FTPRequestList extends FTPRequest {
 	    context.getClient().sendResponse(new FTPResponse(150, "Here comes the directory listing."));
 		
 	    try {
-	    	System.out.println("need to join");
 			context.joinConnectionThreadIfAlive();
-			System.out.println("joined ok");
 		} catch (final InterruptedException e) {
 			throw new RuntimeException(e);
 		}

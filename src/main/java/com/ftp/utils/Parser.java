@@ -20,7 +20,7 @@ public class Parser {
 	 * @return un objet FTPRequest contenant le code + message.
 	 * @throws ParseException
 	 */
-	public static FTPRequest parseRequest(final String request) throws ParseException{
+	public static FTPRequest parseRequest(final String request) throws ParseException {
 		
 		final String[] words = request.split("\\s");
 		
@@ -42,10 +42,10 @@ public class Parser {
 	}
 	
 	/**
-	 * Parses eprt request
-	 * @param requestMessage should be formatted as follows :
+	 * Parse les requête EPRT
+	 * @param requestMessage devrait être formaté comme suit
 	 * 	EPRT : |2|client_address|client_data_port|
-	 * @return
+	 * @return la connexion crée à partir des données du message
 	 * @throws ParseException
 	 */
 	public static InetSocketAddress parseEPRT(final String requestMessage) throws ParseException {
@@ -60,7 +60,7 @@ public class Parser {
 			
 			return new InetSocketAddress(hostname, port);
 		} catch (final Exception e) {
-			// thrown if the request is badly formatted or if the port section is not a number
+			// Exception lancée si la requête est mal formatée ou si le port n'est pas un nombre
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
 	}
@@ -83,13 +83,13 @@ public class Parser {
 
 			return new InetSocketAddress(hostname, port);
 		} catch (final Exception e) {
-			// thrown if the request is badly formatted or if the port section is not a number
+			// Exception lancée si la requête est mal formatée ou si le port n'est pas un nombre
 			throw new ParseException("The PORT message is badly formatted", 0);
 		}
 	}
 	
 	/**
-	 * permet de créer le retour pour le client à la commande PASV.
+	 * Permet de créer le retour pour le client à la commande PASV.
 	 * @param hostname le hostname
 	 * @param port le port du serveur
 	 * @return la chaine formatté selon les RFC FTP.
@@ -99,8 +99,8 @@ public class Parser {
 	}
 	
 	/**
-	 * 
-	 * @param args
+	 * Parse les arguments passés au serveur au lancement
+	 * @param args les arguments du programme
 	 */
 	public static void parseArgs(final String[] args) {
 		if (args.length >= 2 && args[0].equals("-rd")) {

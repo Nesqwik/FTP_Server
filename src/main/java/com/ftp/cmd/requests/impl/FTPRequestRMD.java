@@ -8,7 +8,7 @@ import com.ftp.utils.Context;
 
 
 /**
- * Commande FTP RMD 
+ * Commande FTP RMD : permet de supprimer un dossier ou un fichier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

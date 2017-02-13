@@ -9,7 +9,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP CWD (change directory)
+ * Commande FTP CWD : permet de changer de dossier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

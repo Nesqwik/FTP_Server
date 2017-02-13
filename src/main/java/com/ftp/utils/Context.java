@@ -86,7 +86,7 @@ public class Context {
 	}
 
 	/**
-	 * crée un système de fichier à partir du dossier racine
+	 * Crée un système de fichier à partir du dossier racine
 	 * @param rootDirectory le dossier racine
 	 */
 	public void setFileSystem(final FileSystem fileSystem) {
@@ -107,9 +107,7 @@ public class Context {
 	 */
 	public void joinConnectionThreadIfAlive() throws InterruptedException {
 		if (passiveConnectionThread.isAlive()) {
-			System.out.println("joining " + passiveConnectionThread);
 			passiveConnectionThread.join();
-			System.out.println("joined");
 		}
 	}
 

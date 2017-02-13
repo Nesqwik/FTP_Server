@@ -8,7 +8,7 @@ import com.ftp.utils.Context;
 
 
 /**
- * Commande FTP QUIT 
+ * Commande FTP QUIT : permet de se déconnecter du serveur
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

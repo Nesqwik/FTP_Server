@@ -13,7 +13,7 @@ import com.ftp.states.api.DirNavigationState;
 import com.ftp.utils.Context;
 
 /**
- * State dans lequel l'utilisateur est connecté et le serveur connait son ip/port en mode actif.
+ * State dans lequel l'utilisateur est connecté et le serveur connaît son ip/port en mode actif.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -35,14 +35,12 @@ public class DataConnectedState extends DirNavigationState {
 	@Override
 	protected void handleRequest(final Context context, final FTPRequest request) {
 		final FTPResponse response = request.execute(context);
-		//TODO: check errors
 		context.setCurrentState(StateFactory.getLoggedInState());
 		context.getClient().sendResponse(response);
 	}
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestPort request) {
-		//TODO: check if useful
 		handleRequest(context, request);
 	}
 	

@@ -11,7 +11,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP EPSV 
+ * Commande FTP EPSV : permet la configuration de la socket en mode passif
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

@@ -11,6 +11,16 @@ import com.ftp.cmd.requests.impl.FTPRequestRnfr;
 import com.ftp.states.StateFactory;
 import com.ftp.utils.Context;
 
+/**
+ * Etat contenant toutes les opérations relatives à la gestion des fichiers sur le serveur
+ * ne nécessitant pas de connexion faisant transiter des données.
+ * 
+ * Il a été crée pour regrouper les comportements similaires des états LoggedInState, 
+ * DataConnectedState et PassiveDataConnectedState.
+ * 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public abstract class DirNavigationState extends State {
 
 	@Override

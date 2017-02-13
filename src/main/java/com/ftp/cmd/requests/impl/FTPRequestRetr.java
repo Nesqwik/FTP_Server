@@ -11,7 +11,7 @@ import com.ftp.utils.Context;
 
 
 /**
- * Commande FTP RETR 
+ * Commande FTP RETR : permet de télécharger un fichier ou un dossier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -29,7 +29,6 @@ public class FTPRequestRetr extends FTPRequest {
 	@Override
 	public FTPResponse execute(final Context context) {
 		context.getClient().sendResponse(new FTPResponse(150, "File status okay; about to open data connection."));
-		//context.getClient().connectDataSocket();
 		
 		final DataOutputStream dos = context.getClient().getDataOutputStream();
 		
@@ -39,7 +38,6 @@ public class FTPRequestRetr extends FTPRequest {
 			
 			return new FTPResponse(200, "ok");
 		} catch (final IOException e) {
-			//context.getClient().closeDataSocket();
 			return new FTPResponse(451, "Requested action aborted: local error in processing.");
 		} finally {
 			

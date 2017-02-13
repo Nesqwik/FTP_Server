@@ -33,7 +33,7 @@ public abstract class State {
 	/**
 	 * Permet l'affichage du state recevant un message du client.
 	 * Override par les states filles.
-	 * @param context le context d'execution de l'utilisateur
+	 * @param context le contexte d'execution de l'utilisateur
 	 * @param request la requête de l'utilisateur
 	 */
 	public void executeRequest(final Context context, final FTPRequest request) {
@@ -228,10 +228,14 @@ public abstract class State {
 	 * @param context le context d'execution de l'utilisateur
 	 */
 	protected void onNotImplementedResponse(final Context context) {
-        //TODO: 530 Not logged in.
 		context.getClient().sendResponse(FTPResponse.getCommandNotImplementedResponse());
 	}
 	
+	/**
+	 * Méthode contenant un comportement par défaut pour gérer les requêtes.
+	 * @param context le contexte d'exécution
+	 * @param request la requête à exécuter
+	 */
 	protected void handleRequest(final Context context, final FTPRequest request) {
 		final FTPResponse response = request.execute(context);
 		context.getClient().sendResponse(response);

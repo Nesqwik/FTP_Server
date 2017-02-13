@@ -150,6 +150,11 @@ public enum Commands {
 		}
 	};
 	
+	/**
+	 * Méthode permettant de créer une FTPRequest correspondant au type de la commande.
+	 * @param message
+	 * @return
+	 */
 	public abstract FTPRequest makeRequest(String message);
 	
 	private String name;
