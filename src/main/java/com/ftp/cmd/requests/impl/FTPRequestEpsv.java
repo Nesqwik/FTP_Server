@@ -31,9 +31,9 @@ public class FTPRequestEpsv extends FTPRequest {
 				
 				return new FTPResponse(229, "Entering Extended Passive Mode (|||" + dataPort + "|).");
 			} catch (final UnknownHostException e) {
-				throw new RuntimeException(e);
+				return new FTPResponse(550, "Requested action not taken.");
 			} catch (final IOException e) {
-				throw new RuntimeException(e);
+				return new FTPResponse(550, "Requested action not taken.");
 			}
 	}
 

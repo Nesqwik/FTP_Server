@@ -10,6 +10,6 @@ public class ClientTest {
 	
 	@Test(expected=SocketException.class)
 	public void testClientCreationFailIfSocketNotConnected() throws IOException {
-		final Client client = new Client(new Socket());
+		new Client(new Socket());
 	}
 }

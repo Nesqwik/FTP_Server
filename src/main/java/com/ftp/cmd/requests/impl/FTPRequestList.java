@@ -25,7 +25,7 @@ public class FTPRequestList extends FTPRequest {
 	    try {
 			context.joinConnectionThreadIfAlive();
 		} catch (final InterruptedException e) {
-			throw new RuntimeException(e);
+			return new FTPResponse(550, "Requested action not taken.");
 		}
 	    context.getClient().sendStringData(context.getFileSystem().list());
 	    
