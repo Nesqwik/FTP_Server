@@ -7,7 +7,9 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP RNTO 
+ * Commande FTP RNTO : permet de préciser le nouveau nom du fichier à renommer. Doit être
+ * précédée d'une requête RNFR pour fonctionner.
+ * 
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -26,12 +28,9 @@ public class FTPRequestRnto extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(final Context context) {
-		System.out.println("rnto executing");
 		if (context.getFileSystem().rename(fileToRenamePath, getMessage())){
-			System.out.println("renaming ok");
 			return new FTPResponse(250, "Requested file action okay, completed.");
 		}
-		System.out.println("renaming not ok");
 		return new FTPResponse(550, "Requested action not taken.\nFile unavailable (e.g., file not found, no access).");
 	}
 

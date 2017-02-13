@@ -18,10 +18,8 @@ import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
 /**
- * 
- * @author Jonathan Lecointe & Louis Guilbert
- * 
  * La classe client permet de gérer les informations relatif à la session du client.
+ * @author Jonathan Lecointe & Louis Guilbert
  */
 
 public class Client implements Runnable {
@@ -31,7 +29,6 @@ public class Client implements Runnable {
 	
 	private Socket dataSocket;
 	private ServerSocket dataSocketPassive;
-	private BufferedReader dataReader;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
 	private BufferedWriter dataWriter;
@@ -55,14 +52,13 @@ public class Client implements Runnable {
 	}
 	
 	/**
-	 * Permet se connecter au serveur de data du client en version actif
+	 * Permet se connecter au serveur de data du client (en mode actif)
 	 */
 	public void connectDataSocket() {
 		try {
 			dataSocket = new Socket(dataAddr, dataPort);
 			dataInputStream = new DataInputStream(dataSocket.getInputStream());
 			dataOutputStream = new DataOutputStream(dataSocket.getOutputStream());
-			dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 			dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
@@ -70,7 +66,7 @@ public class Client implements Runnable {
 	}
 	
 	/**
-	 * Permet d'ouvrir un socket data serveur pour que le client s'y connecte (en version passif)
+	 * Permet d'ouvrir un socket data serveur pour que le client s'y connecte (en mode passif)
 	 * @throws UnknownHostException
 	 * @throws IOException
 	 */
@@ -86,7 +82,6 @@ public class Client implements Runnable {
 					dataSocket = dataSocketPassive.accept();
 					dataInputStream = new DataInputStream(dataSocket.getInputStream());
 					dataOutputStream = new DataOutputStream(dataSocket.getOutputStream());
-					dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 					dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 				} catch (final IOException e) {
 					throw new RuntimeException(e);
@@ -124,14 +119,14 @@ public class Client implements Runnable {
 	}
 	
 	/**
-	 * @return Renvoie le outputstream permettant d'écrire des données en byte
+	 * @return Renvoie le OutputStream permettant d'écrire des données en octets
 	 */
 	public DataOutputStream getDataOutputStream() {
 		return dataOutputStream;
 	}
 	
 	/**
-	 * @return Renvoie le inputstream permettant de lire des données en byte
+	 * @return Renvoie le InputStream permettant de lire des données en octets
 	 */
 	public DataInputStream getDataInputStream() {
 		return dataInputStream;
@@ -174,7 +169,7 @@ public class Client implements Runnable {
 	}
 	
 	/**
-	 * Permet de fermet la connexion client/serveur
+	 * Permet de fermer la connexion client/serveur
 	 */
 	public void quit() {
 		try {
@@ -193,7 +188,7 @@ public class Client implements Runnable {
 
 	/**
 	 * 
-	 * @param dataAddr l'adresse du serveur de donnée
+	 * @param dataAddr l'adresse du serveur de données
 	 */
 	public void setDataAddr(final String dataAddr) {
 		this.dataAddr = dataAddr;

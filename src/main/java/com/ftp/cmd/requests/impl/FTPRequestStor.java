@@ -10,7 +10,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP STOR 
+ * Commande FTP STOR : permet d'uploader un fichier ou un dossier sur le serveur.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

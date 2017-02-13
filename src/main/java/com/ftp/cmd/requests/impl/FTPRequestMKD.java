@@ -7,7 +7,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP MKD 
+ * Commande FTP MKD : crée un dossier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -26,7 +26,7 @@ public class FTPRequestMKD extends FTPRequest {
 	public FTPResponse execute(Context context) {
 		String newFile = getMessage();
 		if (context.getFileSystem().mkd(newFile)) {
-			return new FTPResponse(257, "\"" + getMessage() + "\" directory created");
+			return new FTPResponse(257, "\"" + newFile + "\" directory created");
 		}
 		
 		return new FTPResponse(550, "Requested action not taken.");

@@ -7,7 +7,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP DELE (delete)
+ * Commande FTP DELE : suppression de fichier ou dossier
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

@@ -6,7 +6,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Classe abstraite permettant l'interfaçage des requêtes FTP envoyé par le client.
+ * Classe abstraite permettant l'interfaçage des requêtes FTP envoyées par le client.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -36,13 +36,17 @@ public abstract class FTPRequest {
 	public abstract Commands getCommand();
 	
 	/**
-	 * Execute la commande relatif à la requête et renvoie une réponse associée.
+	 * Execute la commande relative à la requête et renvoie une réponse associée.
 	 * @param context
 	 * @return
 	 */
 	public abstract FTPResponse execute(Context context);
 	
 	/**
+	 * Exécute l'état passé en paramètre.
+	 * L'intérêt de cette méthode est que puisque l'on appelle cette méthode depuis la
+	 * FTPRequest, l'état connaîtra le type concret de la requête, et pourra donc appeller
+	 * la méthode associée au type concret.
 	 * 
 	 * @param context
 	 * @param state

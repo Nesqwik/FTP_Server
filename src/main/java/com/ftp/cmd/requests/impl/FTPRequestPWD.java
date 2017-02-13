@@ -7,7 +7,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP PWD 
+ * Commande FTP PWD : permet d'afficher le chemin du dossier courant
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

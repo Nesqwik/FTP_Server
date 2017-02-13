@@ -11,7 +11,7 @@ import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
 /**
- * Commande FTP EPRT 
+ * Commande FTP EPRT : permet la configuration de la socket en mode actif
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

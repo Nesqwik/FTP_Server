@@ -39,7 +39,6 @@ public class PassiveDataConnectedState extends DirNavigationState {
 			throw new RuntimeException(e);
 		}
 		final FTPResponse response = request.execute(context);
-		//TODO: check errors in response
 		context.setCurrentState(StateFactory.getLoggedInState());
 		context.getClient().sendResponse(response);
 		context.getClient().closeDataSocket();
@@ -47,7 +46,6 @@ public class PassiveDataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestEprt request) {
-		//TODO: check if useful
 		final FTPResponse response = request.execute(context);
 		
 		if (response.getCode() == 200) {
@@ -59,7 +57,6 @@ public class PassiveDataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestPort request) {
-		//TODO: check if useful
 		handleRequest(context, request);
 	}
 	
@@ -70,7 +67,6 @@ public class PassiveDataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestType request) {
-		//TODO : check if still works with comeback to loggedinstate in handleRequest
 		handleRequest(context, request);
 	}
 	

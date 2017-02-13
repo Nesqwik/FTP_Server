@@ -9,7 +9,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP CDUP
+ * Commande FTP CDUP : permet de remonter d'un niveau dans la hiérarchie de dossiers.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

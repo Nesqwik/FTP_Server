@@ -8,7 +8,7 @@ import com.ftp.utils.Context;
 
 
 /**
- * Commande FTP RNFR 
+ * Commande FTP RNFR : permet de préciser un fichier que l'on souhaite renommer. 
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

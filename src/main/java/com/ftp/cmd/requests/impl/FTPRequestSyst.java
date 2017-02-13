@@ -7,7 +7,9 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP SYST
+ * Commande FTP SYST : détermine le type de système d'exploitation sur lequel se trouve
+ * le serveur FTP. Ici, ne fonctionne que pour les systèmes de type UNIX.
+ * 
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

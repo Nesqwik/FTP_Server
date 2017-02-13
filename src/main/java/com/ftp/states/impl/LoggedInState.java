@@ -14,7 +14,7 @@ import com.ftp.utils.Context;
 
 /**
  * Etat dans lequel l'utilisateur est identifié.
- * Il peut envoyer les requêtes ne nécéssitant pas de cannal de data.
+ * Il peut envoyer les requêtes ne nécéssitant pas de canal de données.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -60,13 +60,11 @@ public class LoggedInState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestPASV request) {
-		//TODO: check if useful, and if so, make it work
 		handleRequest(context, request);
 	}
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestEpsv request) {
-		//TODO: handle errors
 		try {
 			final FTPResponse response = request.execute(context);
 			context.setCurrentState(StateFactory.getPassiveDataConnectedState());

@@ -35,7 +35,6 @@ public class FileSystem {
 		}
 	}
 	
-	
 	private String getAbsoluteCurrentPath() {
 		return this.rootDirectory + "/" + currentDirectory;
 	}
@@ -129,20 +128,16 @@ public class FileSystem {
 	 * @return
 	 */
 	public String pwd() {
-		// TODO: envoyer chemin relatif au rootDirectory du user
 		return "\"" + currentDirectory.replaceAll("\"", "\"\"") + "\"";
 	}
 
 	/**
-	 * crée un dossier
+	 * Crée un dossier
 	 * @param newFilePath le chemin du dossier
 	 * @return vrai si il a réussi à créer
 	 */
 	public boolean mkd(final String newFilePath) {
 		final File newFile = new File(newFilePath);
-		
-		// TODO: verifier droits
-		// si interdit -> 550 Permission Denied
 		
 		if (newFile.isAbsolute()) {
 			return newFile.mkdirs();
@@ -152,15 +147,12 @@ public class FileSystem {
 	}
 	
 	/**
-	 * permet de supprimer un dossier.
+	 * Permet de supprimer un dossier.
 	 * @param filePath le fichier à supprimer
-	 * @return vrau su réussi
+	 * @return vrai si réussi, faux sinon
 	 */
 	public boolean rmd(final String filePath) {
 		final File newFile = new File(filePath);
-		
-		// TODO: verifier droits
-		// si interdit -> 550 Permission Denied
 		
 		if (newFile.isAbsolute()) {
 			return newFile.delete();
@@ -174,14 +166,13 @@ public class FileSystem {
 	 * @throws IOException
 	 */
 	public void cdup() throws IOException {
-		//TODO: check if works as expected
 		cwd(currentDirectory + "/..");
 	}
 
 	/**
-	 * permet de supprimer un fichier.
+	 * Permet de supprimer un fichier.
 	 * @param fileName le chemin vers le fichier à supprimer.
-	 * @return vrai si réussi.
+	 * @return vrai si réussi, faux sinon.
 	 */
 	public boolean dele(final String fileName) {
 		return makeFileFromPath(fileName).delete();
@@ -190,7 +181,7 @@ public class FileSystem {
 	/**
 	 * Permet de vérifier si un fichier existe.
 	 * @param filePath le chemin vers le fichier.
-	 * @return vrai si il existe.
+	 * @return vrai s'l existe.
 	 */
 	public boolean doesFileExist(final String filePath) {
 		return makeFileFromPath(filePath).exists();
@@ -209,13 +200,19 @@ public class FileSystem {
 		return toRename.renameTo(newName);
 	}
 	
+	/**
+	 * Crée un fichier respectant la navigation dans la hiérarchie de fichiers du
+	 * serveur, et assurant que l'utilisateur n'atteigne pas des dossiers auxquels il
+	 * ne devrait pas avoir accès.
+	 * 
+	 * @param filePath chemin du fichier à créer, relativement au rootDirectory de l'utilisateur
+	 * @return le fichier crée
+	 */
 	protected File makeFileFromPath(final String filePath) {
 		String actualFilePath = "";
 		if (filePath.startsWith("/")) {
-			System.out.println("Is absolute !");
 			actualFilePath = filePath;
 		} else {
-			System.out.println("Is Relatif !");
 			if (currentDirectory.equals("/")){
 				actualFilePath = currentDirectory + filePath;
 			} else {				

@@ -8,7 +8,7 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * état initial. L'utilisateur ne peut que envoyer la commande User.
+ * Etat initial. L'utilisateur ne peut que envoyer la commande User.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */

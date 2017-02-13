@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Classe permettant de "simuler" une base de donnée des utilisateurs.
+ * Classe permettant de "simuler" une base de données des utilisateurs.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
@@ -32,14 +32,14 @@ public class Database {
 	
 	/**
 	 * 
-	 * @return l'instance de la base de donnée.
+	 * @return l'instance de la base de données.
 	 */
 	public static Database getInstance() {
 		return instance;
 	}
 	
 	/**
-	 * Vérifie si le mot de passe est correct pour l'user donné
+	 * Vérifie si le mot de passe est correct pour l'utilisateur donné
 	 * @param user l'utilisateur à vérifier
 	 * @param password le mot de passe relatif à l'utilisateur
 	 * @return vrai si l'utilisateur est associé au mot de passe. Faux sinon.

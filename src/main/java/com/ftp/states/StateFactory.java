@@ -6,6 +6,7 @@ import com.ftp.states.impl.LoggedInState;
 import com.ftp.states.impl.PassiveDataConnectedState;
 import com.ftp.states.impl.RenamingState;
 import com.ftp.states.impl.UserState;
+
 /**
  * Permet de renvoyer l'instance de l'état demandé.
  * @author Jonathan Lecointe & Louis Guilbert
@@ -17,7 +18,6 @@ public class StateFactory {
 	private final static InitialState initialState = new InitialState();
 	private final static LoggedInState loggedInState = new LoggedInState();
 	private final static DataConnectedState dataConnectedState = new DataConnectedState();
-	//private final static RenamingState renamingState = new RenamingState();
 	private final static PassiveDataConnectedState passiveDataConnectedState = new PassiveDataConnectedState();
 
 	private StateFactory() {	}
@@ -61,6 +61,10 @@ public class StateFactory {
 	 * @return une instance de RenamingState.
 	 */
 	public static RenamingState getRenamingState(final String fileToRenamePath) {
+		/*  Ici, on renvoie un state différent à chaque fois car cet il a un état, et 
+		 	cet état ne doit pas être partagé entre les différents clients.
+		 */
+		
 		RenamingState state = new RenamingState();
 		state.setFileToRename(fileToRenamePath);
 		return state;

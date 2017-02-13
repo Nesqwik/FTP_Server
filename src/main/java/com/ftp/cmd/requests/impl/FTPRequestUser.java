@@ -7,7 +7,8 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
 /**
- * Commande FTP USER
+ * Commande FTP USER : permet de soumettre le login avec lequel on souhaite se connecter
+ * au serveur.
  * @author Jonathan Lecointe & Louis Guilbert
  *
  */
