@@ -84,12 +84,12 @@ Exemple avec une requête de type **USER** envoyée à un InitialState :
 ```
 public class InitialState extends State {
 
-	@Override
-	public void executeRequest(final Context context, final FTPRequest request) {
+  @Override
+  public void executeRequest(final Context context, final FTPRequest request) {
     //Première étape
-		super.executeRequest(context, request);
-		request.executeState(context, this);
-	}
+    super.executeRequest(context, request);
+    request.executeState(context, this);
+  }
 
   @Override
   public void concreteExecuteRequest(final Context context, final FTPRequestUser request) {
@@ -99,10 +99,10 @@ public class InitialState extends State {
 
 public class FTPRequestUser extends FTPRequest {
   @Override
-	public void executeState(final Context context, final State state) {
+  public void executeState(final Context context, final State state) {
     // Seconde étape
-		state.concreteExecuteRequest(context, this);
-	}
+    state.concreteExecuteRequest(context, this);
+  }
 }
 ```
 
@@ -118,6 +118,7 @@ Dans ce programme, il y a deux cas lors desquels nous devons gérer des
 exceptions:
 
 * Les erreurs des requêtes
+
 Certaines requêtes des clients peuvent provoquer des erreurs. Par exemple, si un
 client envoie une requête de type EPSV mal formatée, avec par exemples des
 lettres là ou devrait se trouver le port, une exception sera levée.
@@ -126,6 +127,7 @@ Dans ce type de cas, l'exception est interceptée par la requête qui exécute c
 commande, et répond au client par une erreur appropriée.
 
 * Les erreurs d'exécution
+
 Autre cas, des requêtes peuvent provoquer des erreurs à l'exécution. Par exemple,
 l'ouverture d'une socket peut parfois provoquer une _IOException_. Dans ces cas
 là, on lance une _RuntimeException_, qui déconnecte violemment le client du
@@ -147,11 +149,11 @@ exemple, si on souhaite accéder à l'état _LoggedInState_ :
 ```
 public class StateFactory {
 
-	private final static LoggedInState loggedInState = new LoggedInState();
+  private final static LoggedInState loggedInState = new LoggedInState();
 
   public static LoggedInState getLoggedInState() {
-		return loggedInState;
-	}
+    return loggedInState;
+  }
 }
 
 StateFactory.getLoggedInState()
@@ -172,15 +174,15 @@ implémentée en suivant le pattern Singleton :
 ```
 
 public class Database {
-	private static Database instance = new Database();
+  private static Database instance = new Database();
 
   private Database() {
-		[...]
-	}
+    [...]
+  }
 
-	public static Database getInstance() {
-		return instance;
-	}
+  public static Database getInstance() {
+    return instance;
+  }
 
   // Accès à la base de données
 
