@@ -23,13 +23,13 @@ public class FTPRequestStor extends FTPRequest {
 	@Override
 	public FTPResponse execute(final Context context) {
 		context.getClient().sendResponse(new FTPResponse(150, "File status okay; about to open data connection."));
-		context.getClient().connectDataSocket();
+		//context.getClient().connectDataSocket();
 		
 		try {
 			final DataInputStream dis = context.getClient().getDataInputStream();
 			context.getFileSystem().writeFileToSystem(getMessage(), dis);
-			dis.close();
-			context.getClient().closeDataSocket();
+			//dis.close();
+			//context.getClient().closeDataSocket();
 			return new FTPResponse(226, "Closing data connection. Requested file action successful.");
 		} catch (final IOException e) {
 			return new FTPResponse(451, "Requested action aborted: local error in processing.");

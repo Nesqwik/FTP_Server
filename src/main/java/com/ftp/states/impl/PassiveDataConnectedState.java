@@ -2,7 +2,7 @@ package com.ftp.states.impl;
 
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
-import com.ftp.cmd.requests.impl.FTPRequestEpsv;
+import com.ftp.cmd.requests.impl.FTPRequestEprt;
 import com.ftp.cmd.requests.impl.FTPRequestList;
 import com.ftp.cmd.requests.impl.FTPRequestPort;
 import com.ftp.cmd.requests.impl.FTPRequestRetr;
@@ -12,7 +12,7 @@ import com.ftp.states.StateFactory;
 import com.ftp.states.api.DirNavigationState;
 import com.ftp.utils.Context;
 
-public class DataConnectedState extends DirNavigationState {
+public class PassiveDataConnectedState extends DirNavigationState {
 
 	@Override
 	public void executeRequest(final Context context, final FTPRequest request) {
@@ -22,16 +22,33 @@ public class DataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestList request) {
-		context.getClient().connectDataSocket();
 		handleRequest(context, request);
-		context.getClient().closeDataSocket();
 	}
 	
 	@Override
 	protected void handleRequest(final Context context, final FTPRequest request) {
+		try {
+			context.joinConnectionThreadIfAlive();
+		} catch (final InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		final FTPResponse response = request.execute(context);
-		//TODO: check errors
+		//TODO: check errors in response
 		context.setCurrentState(StateFactory.getLoggedInState());
+		context.getClient().sendResponse(response);
+		context.getClient().closeDataSocket();
+	}
+	
+	@Override
+	public void concreteExecuteRequest(final Context context, final FTPRequestEprt request) {
+		//TODO: check if useful
+		final FTPResponse response = request.execute(context);
+		
+		if (response.getCode() == 200) {
+			context.setCurrentState(new DataConnectedState());
+		}
+		
 		context.getClient().sendResponse(response);
 	}
 	
@@ -43,35 +60,22 @@ public class DataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestRetr request) {
-		context.getClient().connectDataSocket();
 		handleRequest(context, request);
-		context.getClient().closeDataSocket();
 	}
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestType request) {
+		//TODO : check if still works with comeback to loggedinstate in handleRequest
 		handleRequest(context, request);
 	}
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestStor request) {
-		context.getClient().connectDataSocket();
 		handleRequest(context, request);
-		context.getClient().closeDataSocket();
-	}
-	
-	@Override
-	public void concreteExecuteRequest(final Context context, final FTPRequestEpsv request) {
-		//TODO: handle errors
-		final FTPResponse response = request.execute(context);
-		context.setCurrentState(StateFactory.getPassiveDataConnectedState());
-		context.getClient().sendResponse(response);
-		
 	}
 	
 	@Override
 	public String getName() {
-		return "DataConnected";
+		return "PassiveDataConnected";
 	}
-
 }

@@ -12,11 +12,16 @@ public class Context {
 	private String username = null;
 	private FileSystem fileSystem;
 	
+	private Thread passiveConnectionThread = null;
+	
 	public Context(final Client client) {
 		this.client = client;
 		this.currentState = StateFactory.getInitialState();
 	}
 	
+	public Thread getThread() {
+		return passiveConnectionThread;
+	}
 			
 	/**
 	 * @return the client
@@ -72,5 +77,19 @@ public class Context {
 
 	public void setFileSystem(final String rootDirectory) {
 		this.fileSystem = new FileSystem(rootDirectory);
+	}
+
+
+	public void joinConnectionThreadIfAlive() throws InterruptedException {
+		if (passiveConnectionThread.isAlive()) {
+			System.out.println("joining " + passiveConnectionThread);
+			passiveConnectionThread.join();
+			System.out.println("joined");
+		}
+	}
+
+
+	public void setPassiveConnectionThread(final Thread passiveConnectionThread) {
+		this.passiveConnectionThread = passiveConnectionThread;
 	}
 }

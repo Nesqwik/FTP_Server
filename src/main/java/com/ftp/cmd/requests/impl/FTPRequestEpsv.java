@@ -2,16 +2,13 @@ package com.ftp.cmd.requests.impl;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 
 import com.ftp.cmd.Commands;
 import com.ftp.cmd.FTPResponse;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
-import com.ftp.utils.Parser;
 
 public class FTPRequestEpsv extends FTPRequest {
 
@@ -28,13 +25,13 @@ public class FTPRequestEpsv extends FTPRequest {
 				context.getClient().setDataAddr(InetAddress.getLocalHost().getHostAddress());
 				context.getClient().connectPassiveDataSocket();
 				
-				String responseMessage = "|||" + context.getClient().getDataPort() + "|";
+				final int dataPort = context.getClient().getDataPort();
 				
-				return new FTPResponse(200, responseMessage);
-			} catch (UnknownHostException e) {
+				return new FTPResponse(229, "Entering Extended Passive Mode (|||" + dataPort + "|).");
+			} catch (final UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

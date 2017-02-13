@@ -59,7 +59,7 @@ public class Client implements Runnable {
 		dataSocketPassive = new ServerSocket(0);
 		dataPort = dataSocketPassive.getLocalPort();
 		
-		new Thread(new Runnable() {
+		final Thread passiveConnectionThread = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -69,12 +69,15 @@ public class Client implements Runnable {
 					dataOutputStream = new DataOutputStream(dataSocket.getOutputStream());
 					dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 					dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-		}).start();
+		});
+		
+		context.setPassiveConnectionThread(passiveConnectionThread);
+		passiveConnectionThread.start();
 	}
 	
 	public void closeDataSocket() {

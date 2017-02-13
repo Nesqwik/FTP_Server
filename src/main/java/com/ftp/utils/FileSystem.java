@@ -16,11 +16,10 @@ public class FileSystem {
 	private final String rootDirectory;
 	
 	public FileSystem(final String userDirectory) {
-		this.rootDirectory = userDirectory;
+		this.rootDirectory = new File(userDirectory).getAbsolutePath();
 		this.currentDirectory = "/";
 		
 		final File root = new File(rootDirectory);
-		System.out.println(root);
 		
 		if (!root.exists()) {
 			root.mkdirs();
@@ -89,6 +88,9 @@ public class FileSystem {
 		if (file.exists() && file.getCanonicalPath().startsWith(rootDirectory)) {
 			setCurrentDirectory(newDirectory);
 		} else {
+			System.out.println(rootDirectory);
+			System.out.println(file.exists());
+			System.out.println(file.getCanonicalPath().startsWith(rootDirectory));
 			throw new FileNotFoundException();
 		}
 	}
@@ -126,7 +128,7 @@ public class FileSystem {
 
 	public void cdup() throws IOException {
 		//TODO: check if works as expected
-		cwd("/..");
+		cwd(currentDirectory + "/..");
 	}
 
 	public boolean dele(final String fileName) {
