@@ -24,8 +24,9 @@ public class FTPRequestDele extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(final Context context) {
-		//TODO: handle error
-		context.getFileSystem().dele(getMessage());
+		if(!context.getFileSystem().dele(getMessage())) {
+			return new FTPResponse(550, "Requested action not taken.");
+		}
 		return new FTPResponse(250, "Requested file action okay, completed.");
 	}
 

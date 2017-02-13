@@ -36,8 +36,7 @@ public class PassiveDataConnectedState extends DirNavigationState {
 		try {
 			context.joinConnectionThreadIfAlive();
 		} catch (final InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		final FTPResponse response = request.execute(context);
 		//TODO: check errors in response

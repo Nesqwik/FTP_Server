@@ -20,7 +20,6 @@ public class FTPRequestList extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(final Context context) {
-		//context.getClient().connectDataSocket();
 	    context.getClient().sendResponse(new FTPResponse(150, "Here comes the directory listing."));
 		
 	    try {
@@ -28,13 +27,9 @@ public class FTPRequestList extends FTPRequest {
 			context.joinConnectionThreadIfAlive();
 			System.out.println("joined ok");
 		} catch (final InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	    context.getClient().sendStringData(context.getFileSystem().list());
-	    
-	    
-	    //context.getClient().closeDataSocket();
 	    
 		return new FTPResponse(226, "Directory send OK.");
 	}

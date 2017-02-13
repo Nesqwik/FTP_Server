@@ -30,27 +30,19 @@ public class FTPRequestPASV extends FTPRequest {
 	@Override
 	public FTPResponse execute(final Context context) {
 		try {
-			String ipAddress = InetAddress.getLocalHost().getHostAddress();
-			int port = 2021;
+			final String ipAddress = InetAddress.getLocalHost().getHostAddress();
+			final int port = 2021;
 			
 			context.getClient().setDataAddr(ipAddress);
 			context.getClient().setDataPort(port);
 			
-			String response = Parser.makePASVResponse(ipAddress, port);
+			final String response = Parser.makePASVResponse(ipAddress, port);
 			context.getClient().connectDataSocket();
 			
 			return new FTPResponse(227, response);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (final UnknownHostException e) {
+			throw new RuntimeException(e);
 		}
-		
-//		
-//		if (Database.getInstance().logIn(context.getUsername(), getMessage())) {
-//			return new FTPResponse(230, "User logged in");
-//		}
-		return null;
-//		return new FTPResponse(530, "Not logged in");
 	}
 	@Override
 	public void executeState(final Context context, final State state) {

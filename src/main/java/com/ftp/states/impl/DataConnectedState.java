@@ -67,11 +67,13 @@ public class DataConnectedState extends DirNavigationState {
 	
 	@Override
 	public void concreteExecuteRequest(final Context context, final FTPRequestEpsv request) {
-		//TODO: handle errors
-		final FTPResponse response = request.execute(context);
-		context.setCurrentState(StateFactory.getPassiveDataConnectedState());
-		context.getClient().sendResponse(response);
-		
+		try {
+			final FTPResponse response = request.execute(context);
+			context.setCurrentState(StateFactory.getPassiveDataConnectedState());
+			context.getClient().sendResponse(response);			
+		} catch (final RuntimeException e) {
+			context.getClient().sendResponse(new FTPResponse(501, "Syntax error in parameters or arguments."));
+		}
 	}
 	
 	@Override

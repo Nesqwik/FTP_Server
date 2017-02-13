@@ -23,9 +23,6 @@ public class FTPRequestEpsv extends FTPRequest {
 
 	@Override
 	public FTPResponse execute(final Context context) {
-//		try {
-//			final InetSocketAddress socketAddr = Parser.parsePORT(getMessage());
-//			
 			try {
 				context.getClient().setDataAddr(InetAddress.getLocalHost().getHostAddress());
 				context.getClient().connectPassiveDataSocket();
@@ -34,17 +31,10 @@ public class FTPRequestEpsv extends FTPRequest {
 				
 				return new FTPResponse(229, "Entering Extended Passive Mode (|||" + dataPort + "|).");
 			} catch (final UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			} catch (final IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
-//			return new FTPResponse(200, "Command okay.");
-//		} catch (final ParseException e) {
-//			return new FTPResponse(501, "Syntax error in parameters or arguments.");
-//		}
-			return null;
 	}
 
 	@Override

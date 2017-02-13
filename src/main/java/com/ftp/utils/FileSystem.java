@@ -94,7 +94,7 @@ public class FileSystem {
 			}
 			dos.flush();
 		} catch (final IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	

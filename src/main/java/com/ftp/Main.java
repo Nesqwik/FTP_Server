@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.ParseException;
-import java.net.InetAddress;
 
 import com.ftp.utils.Parser;
 
@@ -29,7 +28,7 @@ public class Main {
 				new Thread(new Client(clientSocket)).start();
 			}
 		} catch (final IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
     }
     

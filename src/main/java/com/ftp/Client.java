@@ -65,8 +65,7 @@ public class Client implements Runnable {
 			dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 			dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 		} catch (final IOException e) {
-			//TODO : replace
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -90,8 +89,7 @@ public class Client implements Runnable {
 					dataReader = new BufferedReader(new InputStreamReader(dataSocket.getInputStream()));
 					dataWriter = new BufferedWriter(new OutputStreamWriter(dataSocket.getOutputStream()));
 				} catch (final IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new RuntimeException(e);
 				}
 			}
 		});
@@ -157,7 +155,7 @@ public class Client implements Runnable {
 				}
 			}
 		} catch (final IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -171,7 +169,7 @@ public class Client implements Runnable {
 			System.out.println(response.toString() + "\r\n");
 			cmdWriter.flush();
 		} catch (final IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -182,7 +180,7 @@ public class Client implements Runnable {
 		try {
 			cmdSocket.close();
 		} catch (final IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 	
