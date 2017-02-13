@@ -8,6 +8,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP CDUP
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestCDUP extends FTPRequest {
 	
 	@Override

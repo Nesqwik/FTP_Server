@@ -17,6 +17,13 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
+/**
+ * 
+ * @author Jonathan Lecointe & Louis Guilbert
+ * 
+ * La classe client permet de gérer les informations relatif à la session du client.
+ */
+
 public class Client implements Runnable {
 	private final Socket cmdSocket;
 	private final BufferedReader cmdReader;
@@ -34,6 +41,11 @@ public class Client implements Runnable {
 	private String dataAddr;
 	private int dataPort;
 	
+	/**
+	 * Constructeur du client
+	 * @param client Le socket client permettant d'échanger avec le client.
+	 * @throws IOException
+	 */
 	public Client(final Socket client) throws IOException {
 		this.cmdSocket = client;
 		
@@ -42,6 +54,9 @@ public class Client implements Runnable {
 		cmdWriter = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
 	}
 	
+	/**
+	 * Permet se connecter au serveur de data du client en version actif
+	 */
 	public void connectDataSocket() {
 		try {
 			dataSocket = new Socket(dataAddr, dataPort);
@@ -55,6 +70,11 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * Permet d'ouvrir un socket data serveur pour que le client s'y connecte (en version passif)
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
 	public void connectPassiveDataSocket() throws UnknownHostException, IOException {
 		dataSocketPassive = new ServerSocket(0);
 		dataPort = dataSocketPassive.getLocalPort();
@@ -80,6 +100,9 @@ public class Client implements Runnable {
 		passiveConnectionThread.start();
 	}
 	
+	/**
+	 * Ferme le socket client de données
+	 */
 	public void closeDataSocket() {
 		try {
 			dataSocket.close();
@@ -88,6 +111,10 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * Permet d'envoyer une chaine de caractères au client via le dataSocket
+	 * @param data
+	 */
 	public void sendStringData(final String data) {
 		try {
 			System.out.println(data + "\r\n");
@@ -98,14 +125,23 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * @return Renvoie le outputstream permettant d'écrire des données en byte
+	 */
 	public DataOutputStream getDataOutputStream() {
 		return dataOutputStream;
 	}
 	
+	/**
+	 * @return Renvoie le inputstream permettant de lire des données en byte
+	 */
 	public DataInputStream getDataInputStream() {
 		return dataInputStream;
 	}
 	
+	/**
+	 * Implémentation du runnable
+	 */
 	@Override
 	public void run() {		
 		try {
@@ -125,6 +161,10 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * Permet de renvoyer une réponse au client
+	 * @param response
+	 */
 	public void sendResponse(final FTPResponse response) {
 		try {
 			cmdWriter.write(response.toString() + "\r\n");
@@ -135,6 +175,9 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * Permet de fermet la connexion client/serveur
+	 */
 	public void quit() {
 		try {
 			cmdSocket.close();
@@ -143,18 +186,33 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * @return Renvoie l'adresse du socket de données
+	 */
 	public String getDataAddr() {
 		return dataAddr;
 	}
 
+	/**
+	 * 
+	 * @param dataAddr l'adresse du serveur de donnée
+	 */
 	public void setDataAddr(final String dataAddr) {
 		this.dataAddr = dataAddr;
 	}
 
+	/**
+	 *
+	 * @return le port du serveur de données
+	 */
 	public int getDataPort() {
 		return dataPort;
 	}
-
+	
+	/**
+	 * 
+	 * @param dataPort le port du serveur de données
+	 */
 	public void setDataPort(final int dataPort) {
 		this.dataPort = dataPort;
 	}

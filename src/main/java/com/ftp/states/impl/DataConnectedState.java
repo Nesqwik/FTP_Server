@@ -12,6 +12,11 @@ import com.ftp.states.StateFactory;
 import com.ftp.states.api.DirNavigationState;
 import com.ftp.utils.Context;
 
+/**
+ * State dans lequel l'utilisateur est connecté et le serveur connait son ip/port en mode actif.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class DataConnectedState extends DirNavigationState {
 
 	@Override

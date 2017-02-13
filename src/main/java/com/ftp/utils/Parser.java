@@ -7,8 +7,19 @@ import com.ftp.cmd.Commands;
 import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.database.Database;
 
+/**
+ * Classe permettant de parser les requêtes du client.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class Parser {
 
+	/**
+	 * Parse une requête du client en code + message
+	 * @param request la requête à parser.
+	 * @return un objet FTPRequest contenant le code + message.
+	 * @throws ParseException
+	 */
 	public static FTPRequest parseRequest(final String request) throws ParseException{
 		
 		final String[] words = request.split("\\s");
@@ -29,6 +40,7 @@ public class Parser {
 			throw new ParseException("Unknown command sent", 0);
 		}
 	}
+	
 	/**
 	 * Parses eprt request
 	 * @param requestMessage should be formatted as follows :
@@ -53,6 +65,12 @@ public class Parser {
 		}
 	}
 	
+	/**
+	 * Permet de parser une requête PORT
+	 * @param requestMessage le message à parser
+	 * @return un objet InetSocketAddress contenant l'adresse IP et le port
+	 * @throws ParseException
+	 */
 	public static InetSocketAddress parsePORT(final String requestMessage) throws ParseException {
 		try {
 			final String[] words = requestMessage.split(",");
@@ -70,10 +88,20 @@ public class Parser {
 		}
 	}
 	
+	/**
+	 * permet de créer le retour pour le client à la commande PASV.
+	 * @param hostname le hostname
+	 * @param port le port du serveur
+	 * @return la chaine formatté selon les RFC FTP.
+	 */
 	public static String makePASVResponse(final String hostname, final int port) {
 		return "=" + hostname.replaceAll(".", ",") + port / 256 + "," + port % 256;
 	}
 	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void parseArgs(final String[] args) {
 		if (args.length >= 2 && args[0].equals("-rd")) {
 			Database.getInstance().setDirectoriesRoot(args[1]);

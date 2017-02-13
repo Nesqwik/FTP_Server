@@ -11,10 +11,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 
+/**
+ * Classe permettant de gérer le système de fichier.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FileSystem {
 	private String currentDirectory;
 	private final String rootDirectory;
 	
+	/**
+	 * Crée un système de fichier par rapport au dossier racine de l'utilisateur.
+	 * @param userDirectory
+	 */
 	public FileSystem(final String userDirectory) {
 		this.rootDirectory = new File(userDirectory).getAbsolutePath();
 		this.currentDirectory = "/";
@@ -26,10 +35,15 @@ public class FileSystem {
 		}
 	}
 	
+	
 	private String getAbsoluteCurrentPath() {
 		return this.rootDirectory + "/" + currentDirectory;
 	}
 	
+	/**
+	 * Renvoie la liste du dossier courant.
+	 * @return
+	 */
 	public String list() {
 		try {
 			final Process p = Runtime.getRuntime().exec("ls -al " + getAbsoluteCurrentPath());
@@ -51,11 +65,20 @@ public class FileSystem {
 		}
 	}
 	
+	/**
+	 * Permet de définir le dossier courant
+	 * @param path
+	 */
 	public void setCurrentDirectory(final String path) {
-		// Replace for windows
 		this.currentDirectory = Paths.get(path).normalize().toString().replace('\\', '/');
 	}
 	
+	/**
+	 * Permet d'écrire un fichier dans un outputstream
+	 * @param fileName le fichier à écrire
+	 * @param dos l'outputstream dans lequel écrire le fichier
+	 * @throws IOException
+	 */
 	public void writeFileToBuffer(final String fileName, final DataOutputStream dos) throws IOException{
 		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
 		final DataInputStream dis = new DataInputStream(new FileInputStream(file));
@@ -75,31 +98,46 @@ public class FileSystem {
 		}
 	}
 	
+	/**
+	 * Permet d'écrire un inputstream dans un fichier.
+	 * @param fileName le fichier dans lequel écrire
+	 * @param dis l'inputstream depuis lequel lire
+	 * @throws IOException
+	 */
 	public void writeFileToSystem(final String fileName, final DataInputStream dis) throws IOException {
 		final File file = new File(rootDirectory + currentDirectory + "/" + fileName);
 		final DataOutputStream dos = new DataOutputStream(new FileOutputStream(file));
 		transfertInputStream(dis, dos);
 	}
 
+	/**
+	 * Change working directory. Permet de changer de répertoire courant.
+	 * @param newDirectory le nouveau réppertoire.
+	 * @throws IOException
+	 */
 	public void cwd(final String newDirectory) throws IOException {
 		final File file = makeFileFromPath(newDirectory);
-		
-			System.out.println(file.getCanonicalPath());
 		if (file.exists() && file.getCanonicalPath().startsWith(rootDirectory)) {
 			setCurrentDirectory(newDirectory);
 		} else {
-			System.out.println(rootDirectory);
-			System.out.println(file.exists());
-			System.out.println(file.getCanonicalPath().startsWith(rootDirectory));
 			throw new FileNotFoundException();
 		}
 	}
 
+	/**
+	 * Retourne le dossier courant.
+	 * @return
+	 */
 	public String pwd() {
 		// TODO: envoyer chemin relatif au rootDirectory du user
 		return "\"" + currentDirectory.replaceAll("\"", "\"\"") + "\"";
 	}
 
+	/**
+	 * crée un dossier
+	 * @param newFilePath le chemin du dossier
+	 * @return vrai si il a réussi à créer
+	 */
 	public boolean mkd(final String newFilePath) {
 		final File newFile = new File(newFilePath);
 		
@@ -113,6 +151,11 @@ public class FileSystem {
 		return new File(getAbsoluteCurrentPath() + "/" + newFilePath).mkdirs();
 	}
 	
+	/**
+	 * permet de supprimer un dossier.
+	 * @param filePath le fichier à supprimer
+	 * @return vrau su réussi
+	 */
 	public boolean rmd(final String filePath) {
 		final File newFile = new File(filePath);
 		
@@ -126,19 +169,39 @@ public class FileSystem {
 		return new File(getAbsoluteCurrentPath() + "/" + filePath).delete();
 	}
 
+	/**
+	 * Permet revenir au dossier parent.
+	 * @throws IOException
+	 */
 	public void cdup() throws IOException {
 		//TODO: check if works as expected
 		cwd(currentDirectory + "/..");
 	}
 
+	/**
+	 * permet de supprimer un fichier.
+	 * @param fileName le chemin vers le fichier à supprimer.
+	 * @return vrai si réussi.
+	 */
 	public boolean dele(final String fileName) {
 		return makeFileFromPath(fileName).delete();
 	}
 
+	/**
+	 * Permet de vérifier si un fichier existe.
+	 * @param filePath le chemin vers le fichier.
+	 * @return vrai si il existe.
+	 */
 	public boolean doesFileExist(final String filePath) {
 		return makeFileFromPath(filePath).exists();
 	}
 
+	/**
+	 * Permet de renommer un fichier.
+	 * @param fileToRenamePath le chemin vers le fichier à renommer.
+	 * @param newFileName le nouveau nom.
+	 * @return vrai si réussi.
+	 */
 	public boolean rename(final String fileToRenamePath, final String newFileName) {
 		final File toRename = makeFileFromPath(fileToRenamePath);
 		final File newName = makeFileFromPath(newFileName);

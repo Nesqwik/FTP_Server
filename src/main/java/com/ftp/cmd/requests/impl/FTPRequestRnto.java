@@ -6,6 +6,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP RNTO 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestRnto extends FTPRequest {
 	
 	protected String fileToRenamePath = null;

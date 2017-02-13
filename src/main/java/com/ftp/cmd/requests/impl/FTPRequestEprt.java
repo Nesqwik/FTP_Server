@@ -10,6 +10,11 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
+/**
+ * Commande FTP EPRT 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestEprt extends FTPRequest {
 
 	public FTPRequestEprt(final String message) {

@@ -9,6 +9,11 @@ import com.ftp.states.StateFactory;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Etat dans lequel le client a envoyé son nom d'utilisateur. Le serveur attends alors un mot de passe.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class UserState extends State {
 
 	@Override

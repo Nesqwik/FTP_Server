@@ -10,6 +10,12 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
+
+/**
+ * Commande FTP PASV 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestPASV extends FTPRequest {
 
 	public FTPRequestPASV(final String message) {

@@ -7,6 +7,11 @@ import com.ftp.database.Database;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP PASS 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestPass extends FTPRequest {
 	
 	public FTPRequestPass(final String message) {

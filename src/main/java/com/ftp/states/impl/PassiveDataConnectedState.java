@@ -12,6 +12,12 @@ import com.ftp.states.StateFactory;
 import com.ftp.states.api.DirNavigationState;
 import com.ftp.utils.Context;
 
+/**
+ * Etat dans lequel le serveur a envoyé les information de connexion en mode passif.
+ * L'utilisateur peut envoyer des requêtes nécéssitant le canal de donnée.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class PassiveDataConnectedState extends DirNavigationState {
 
 	@Override

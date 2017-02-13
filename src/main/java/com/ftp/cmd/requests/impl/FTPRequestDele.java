@@ -6,6 +6,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP DELE (delete)
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestDele extends FTPRequest {
 
 	public FTPRequestDele(final String message) {

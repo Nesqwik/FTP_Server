@@ -10,6 +10,12 @@ import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 import com.ftp.utils.Parser;
 
+
+/**
+ * Commande FTP PORT 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestPort extends FTPRequest {
 
 	public FTPRequestPort(final String message) {

@@ -4,6 +4,12 @@ import com.ftp.Client;
 import com.ftp.states.StateFactory;
 import com.ftp.states.api.State;
 
+/**
+ * Contexte d'execution de l'utilisateur.
+ * Il contient tout le nécessaire à la session de l'utilisateur.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class Context {
 	
 	private Client client;
@@ -71,15 +77,26 @@ public class Context {
 		this.username = username;
 	}
 
+	/**
+	 * 
+	 * @return le système de fichier
+	 */
 	public FileSystem getFileSystem() {
 		return fileSystem;
 	}
 
+	/**
+	 * crée un système de fichier à partir du dossier racine
+	 * @param rootDirectory le dossier racine
+	 */
 	public void setFileSystem(final String rootDirectory) {
 		this.fileSystem = new FileSystem(rootDirectory);
 	}
 
-
+	/**
+	 * Permet de join les connexions en mode passif.
+	 * @throws InterruptedException
+	 */
 	public void joinConnectionThreadIfAlive() throws InterruptedException {
 		if (passiveConnectionThread.isAlive()) {
 			System.out.println("joining " + passiveConnectionThread);
@@ -88,7 +105,10 @@ public class Context {
 		}
 	}
 
-
+	/**
+	 * Permet de définir le thread de connexion passif.
+	 * @param passiveConnectionThread le thread passif.
+	 */
 	public void setPassiveConnectionThread(final Thread passiveConnectionThread) {
 		this.passiveConnectionThread = passiveConnectionThread;
 	}

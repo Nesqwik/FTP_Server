@@ -6,6 +6,11 @@ import com.ftp.cmd.requests.impl.FTPRequestRnto;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Etat dans lequel le serveur a enregistré le nom du fichier à renommer. il est maintenant prêt à reçevoir la cible du renommage. 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class RenamingState extends State {
 	
 	public RenamingState() { }

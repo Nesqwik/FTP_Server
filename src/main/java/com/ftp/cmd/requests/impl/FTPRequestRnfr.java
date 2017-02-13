@@ -6,6 +6,12 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+
+/**
+ * Commande FTP RNFR 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestRnfr extends FTPRequest {
 
 	public FTPRequestRnfr(final String message) {

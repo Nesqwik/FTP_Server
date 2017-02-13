@@ -12,6 +12,12 @@ import com.ftp.states.StateFactory;
 import com.ftp.states.api.DirNavigationState;
 import com.ftp.utils.Context;
 
+/**
+ * Etat dans lequel l'utilisateur est identifié.
+ * Il peut envoyer les requêtes ne nécéssitant pas de cannal de data.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class LoggedInState extends DirNavigationState {
 
 	@Override

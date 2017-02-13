@@ -9,6 +9,12 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+
+/**
+ * Commande FTP RETR 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestRetr extends FTPRequest {
 
 	public FTPRequestRetr(final String message) {

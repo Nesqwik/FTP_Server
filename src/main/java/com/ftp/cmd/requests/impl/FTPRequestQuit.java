@@ -6,6 +6,12 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+
+/**
+ * Commande FTP QUIT 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestQuit extends FTPRequest {
 
 	@Override

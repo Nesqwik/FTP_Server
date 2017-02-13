@@ -22,6 +22,11 @@ import com.ftp.cmd.requests.impl.FTPRequestSyst;
 import com.ftp.cmd.requests.impl.FTPRequestType;
 import com.ftp.cmd.requests.impl.FTPRequestUser;
 
+/**
+ * Enum permettant de créer un objet FTPRequest à partir du nom de la commande.
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public enum Commands {
 	
 	USER("USER") {
@@ -153,6 +158,10 @@ public enum Commands {
 		this.name = name;
 	}
 	
+	/**
+	 * 
+	 * @return le nom de la commande
+	 */
 	public String getName() {
 		return name;
 	}

@@ -9,6 +9,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP STOR 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestStor extends FTPRequest {
 	
 	public FTPRequestStor(final String message) {

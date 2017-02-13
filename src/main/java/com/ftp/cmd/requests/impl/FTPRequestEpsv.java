@@ -10,6 +10,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP EPSV 
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestEpsv extends FTPRequest {
 
 	public FTPRequestEpsv(final String message) {

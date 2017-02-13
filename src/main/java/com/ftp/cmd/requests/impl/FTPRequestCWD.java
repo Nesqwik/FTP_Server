@@ -8,6 +8,11 @@ import com.ftp.cmd.requests.FTPRequest;
 import com.ftp.states.api.State;
 import com.ftp.utils.Context;
 
+/**
+ * Commande FTP CWD (change directory)
+ * @author Jonathan Lecointe & Louis Guilbert
+ *
+ */
 public class FTPRequestCWD extends  FTPRequest {
 
 	public FTPRequestCWD(final String message) {
