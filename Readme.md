@@ -13,6 +13,15 @@ Dans notre implémentation, nous avons décidé d'utiliser un système de machin
 à états, chaque état n'acceptant que certaines commandes précises pour agir
 sur le serveur.
 
+### Executer le serveur
+```
+mvn exec:java
+```
+### Executer les tests
+```
+mvn test
+```
+
 ## Architecture
 ### Les requêtes
 Notre serveur FTP est capable de recevoir des requêtes du client. Il existe
